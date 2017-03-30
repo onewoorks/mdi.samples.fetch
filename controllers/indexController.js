@@ -3,7 +3,7 @@ indexApp.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 	console.log("Hello from indexController");
 	
 	var refresh = function() {
-		$http.get('http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/listpatientid/95746').then(function(response){
+		$http.get('https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/listpatientid/95746').then(function(response){
 			console.log("I GET from RESTful API");		
 			var vsms = response.data;
 			$scope.vsms = vsms;
@@ -15,7 +15,7 @@ indexApp.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.add = function() {
 		console.log($scope.vsm);
 		
-		$http.post('http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms', $scope.vsm).then(function(response) {
+		$http.post('https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms', $scope.vsm).then(function(response) {
 			console.log(response);
 			refresh();
 		});
@@ -24,7 +24,7 @@ indexApp.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.remove = function(id) {
 		console.log(id);
 		
-		$http.delete('http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/' + id).then(function(response) {
+		$http.delete('https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/' + id).then(function(response) {
 			refresh();
 		});
 	};
@@ -32,7 +32,7 @@ indexApp.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.edit = function(id) {
 		console.log(id);
 		
-		$http.get('http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/' + id).then(function(response) {
+		$http.get('https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/' + id).then(function(response) {
 			$scope.vsm = response.data;
 		});
 	};
@@ -40,7 +40,7 @@ indexApp.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.update = function() {
 		console.log($scope.vsm.id);
 		
-		$http.put('http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/' + $scope.vsm.id, $scope.vsm).then(function(response) {
+		$http.put('https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatienthiskkms/' + $scope.vsm.id, $scope.vsm).then(function(response) {
 			refresh();
 		});
 	};
@@ -49,10 +49,10 @@ indexApp.controller('IndexCtrl', ['$scope', '$http', function($scope, $http) {
 		$scope.vsm = null;
 	};
 	
-	// DEVICE list -> http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatientvsms/listpatientid/95746
-	// DEVICE latest reading -> http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatientvsms/patientid/95746
+	// DEVICE list -> https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatientvsms/listpatientid/95746
+	// DEVICE latest reading -> https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatientvsms/patientid/95746
 	$scope.device = function() {
-		$http.get('http://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatientvsms/patientid/95746').then(function(response) {
+		$http.get('https://mywildflyrestv2-emafazillah.rhcloud.com/api/tblpatientvsms/patientid/95746').then(function(response) {
 			console.log("I GET request data from DEVICE");
 			
 			var deviceArray = response.data;			
