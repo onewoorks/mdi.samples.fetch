@@ -194,7 +194,13 @@
             <div class="panel panel-default panel-primary">
                 <div class="panel-heading">...</div>
                 <div class="panel-body">
-                    <div id="chartdiv" style="height:400px;width:600px; "></div>
+                    <div class="col-sm-6 text-center">
+                        <div id="chartdiv2" style="height:400px;width:600px; "></div>
+                    </div>
+
+                    <div class="col-sm-6 text-center">
+                        <div id="chartdiv" style="height:400px;width:600px; "></div>
+                    </div>
                 </div>
             </div>
 
@@ -206,39 +212,9 @@
         <script src="./assets/jquery/jquery-3.1.1.min.js"></script>
         <script language="javascript" type="text/javascript" src="assets/libs/jqplot/jquery.jqplot.min.js"></script>
         <script>
-            var graphDataOriginal = [[[0.00, 0.00], [0.10, 4.60], [0.20, 7.40], [0.30, 8.30], [9, 85.9], [11, 22.9]]];
-
-            function VolumeData() {
-                var volumePoint = "0.00,0.00\n0.10,4.60\n0.20,7.40\n0.30,8.30\n0.40,8.20\n0.50,7.80\n0.60,6.90\n0.70,6.30\n0.80,5.20\n0.90,4.40\n1.00,3.70\n1.10,3.20\n1.20,2.90\n1.40,2.60\n1.50,2.10\n1.60,1.70\n1.70,1.40\n1.80,1.10\n1.90,0.70\n2.00,0.50\n2.10,0.40\n2.20,0.30\n2.30,0.20\n2.40,0.10\n2.50,0.00\n";
-                var volumePointArray = volumePoint.split('\n');
-                var data = [[]];
-                $.each(volumePointArray, function (i, v) {
-                    var plot = v.split(',');
-                    var dataplot = [];
-                    $.each(plot, function (a, b) {
-                        dataplot.push(b);
-                    });
-                    data[0].push(dataplot);
-                });
-                return data;
-            }
-
-
             $(function () {
-               
-               
-                var volumePoint = "0.00,0.00\n0.10,4.60\n0.20,7.40\n0.30,8.30\n0.40,8.20\n0.50,7.80\n0.60,6.90\n0.70,6.30\n0.80,5.20\n0.90,4.40\n1.00,3.70\n1.10,3.20\n1.20,2.90\n1.40,2.60\n1.50,2.10\n1.60,1.70\n1.70,1.40\n1.80,1.10\n1.90,0.70\n2.00,0.50\n2.10,0.40\n2.20,0.30\n2.30,0.20\n2.40,0.10\n2.50,0.00\n";
-                var volumePointArray = volumePoint.split('\n');
-                var data = [[]];
-                $.each(volumePointArray, function (i, v) {
-                    var plot = v.split(',');
-                    var dataplot = [];
-                    $.each(plot, function (a, b) {
-                        dataplot.push(parseFloat(b));
-                    });
-                    data[0].push(dataplot);
-                });
-                
+
+
                 $('input').addClass('text-center');
                 $('#fetchData').on('click', function () {
                     $(this).addClass('disabled');
@@ -261,16 +237,101 @@
                             $('[name=post_fvc_percent]').val(sp[0].FEV1FVC);
                         }
                     });
+
+                    $.ajax({
+                        crossOrigin: true,
+                        url: 'https://mdi-spiro-heroku.herokuapp.com/exam-graph/4583',
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            var str = JSON.stringify(data, null, 12)
+                            var graphs = $.parseJSON(str);
+
+                            var volume;
+                            var time;
+                            $.each(graphs, function (i, v) {
+                                console.log(v.GRAPH_TYPE);
+                                if (v.GRAPH_TYPE == 'VOLUME') {
+                                    volume = v.POINTS;
+                                }
+
+                                if (v.GRAPH_TYPE == 'TIME') {
+                                    time = v.POINTS;
+                                }
+                            });
+
+//                            var volumePoint = "0.00,0.00\n0.10,4.60\n0.20,7.40\n0.30,8.30\n0.40,8.20\n0.50,7.80\n0.60,6.90\n0.70,6.30\n0.80,5.20\n0.90,4.40\n1.00,3.70\n1.10,3.20\n1.20,2.90\n1.40,2.60\n1.50,2.10\n1.60,1.70\n1.70,1.40\n1.80,1.10\n1.90,0.70\n2.00,0.50\n2.10,0.40\n2.20,0.30\n2.30,0.20\n2.40,0.10\n2.50,0.00\n";
+                            var volumePoint = volume;
+                            var volumePointArray = volumePoint.split('\n');
+                            var data = [[]];
+                            $.each(volumePointArray, function (i, v) {
+                                var plot = v.split(',');
+                                var dataplot = [];
+                                $.each(plot, function (a, b) {
+                                    dataplot.push(parseFloat(b));
+                                });
+                                data[0].push(dataplot);
+                            });
+
+//                            var timePoint = "0.00,0.00\n0.10,0.10\n0.20,0.80\n0.30,1.20\n0.40,1.40\n0.50,1.60\n0.60,1.70\n0.70,1.80\n0.80,1.90\n0.90,2.00\n1.20,2.10\n1.60,2.20\n2.20,2.30\n2.80,2.40\n3.80,2.40\n";
+                            var timePoint = time;
+                            var timePointArray = timePoint.split('\n');
+                            var dataTime = [[]];
+                            $.each(timePointArray, function (i, v) {
+                                var plot = v.split(',');
+                                var dataplot = [];
+                                $.each(plot, function (a, b) {
+                                    dataplot.push(parseFloat(b));
+                                });
+                                dataTime[0].push(dataplot);
+                            });
+
+                            $.jqplot('chartdiv', data,
+                                    {
+                                        title: 'Volume',
+                                        axes: {
+                                            yaxis: {min: -12, max: 12},
+                                            xaxis: {
+                                                tickOptions: {
+                                                    showMark: false
+                                                },
+                                                min: 0,
+                                                max: 4
+                                            }
+                                        },
+                                        series: [{color: '#5FAB78'}],
+                                        grid: {
+                                            background: '#ffffff',
+                                            shadow: false
+                                        },
+                                        rendererOptions: {
+                                            smooth: true
+                                        }
+                                    });
+
+
+                            $.jqplot('chartdiv2', dataTime,
+                                    {
+                                        title: 'Time',
+                                        axes: {
+                                            yaxis: {min: -12, max: 12},
+                                            xaxis: {min: 0, max: 4}
+                                        },
+                                        series: [{color: '#5FAB78'}],
+                                        grid: {
+                                            background: '#ffffff',
+                                            shadow: false
+                                        },
+                                        rendererOptions: {
+                                            smooth: true
+                                        }
+                                    });
+
+                            $('.jqplot-xaxis').css({'zIndex': 10, 'top': '200px', 'font-weight': 'normal'});
+
+                        }
+                    });
                 });
-                
-                console.log(data);
-
-                $.jqplot('chartdiv', data,
-                        {title: 'Volume',
-                            axes: {yaxis: {min: -12, max: 12}},
-                            series: [{color: '#5FAB78'}]
-                        });
-
 
 
             })
