@@ -6,23 +6,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css" />
         <link rel='stylesheet' href='assets/customs/css/cd-design.css' />
     </head>
     <body>
         <br>
-        
+
         <div class="container-fluid">
-            
+
             <div class="page-header text-center">
                 <h1>Ophthalmology | Special Diagnostic Procedures Notes <small>(POC)</small></h1>
             </div>
-            
+
             <ul class='breadcrumb'>
                 <li ><a href='./'>Home</a></li>
                 <li class='active'>Spirometer</li>
             </ul>
-            
+
             <div class="panel panel-default panel-primary">
                 <div class="panel-heading text-uppercase">Patient Info</div>
                 <div class="panel-body" style="font-size: 0.9em">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="panel panel-default panel-primary">
                 <div class="panel-heading">...</div>
                 <div class="panel-body">
@@ -68,7 +68,7 @@
             <div class="panel panel-default panel-primary">
                 <div class="panel-heading">Examination</div>
                 <div class="panel-body">
-                    
+
                     <form class="form-horizontal">
                         <h5>Examination</h5>
                         <div class="form-group form-group-sm">
@@ -111,7 +111,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
-                                
+
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group form-group-sm">
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-sm-3">
                                 POST BRONCHODILATOR
@@ -154,7 +154,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
-                                
+
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group form-group-sm">
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="form-group form-group-sm">
                                 <label class="control-label col-sm-4">REVERSIBILITY</label>
@@ -186,28 +186,62 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
-            
+
             <div class="panel panel-default panel-primary">
                 <div class="panel-heading">...</div>
                 <div class="panel-body">
-                    ...
+                    <div id="chartdiv" style="height:400px;width:600px; "></div>
                 </div>
             </div>
-            
+
             <hr>
             <footer class="text-center small">
                 HIS@KKM | Integration R&D 2017
             </footer>
         </div>
         <script src="./assets/jquery/jquery-3.1.1.min.js"></script>
+        <script language="javascript" type="text/javascript" src="assets/libs/jqplot/jquery.jqplot.min.js"></script>
         <script>
-            $(function(){
+            var graphDataOriginal = [[[0.00, 0.00], [0.10, 4.60], [0.20, 7.40], [0.30, 8.30], [9, 85.9], [11, 22.9]]];
+
+            function VolumeData() {
+                var volumePoint = "0.00,0.00\n0.10,4.60\n0.20,7.40\n0.30,8.30\n0.40,8.20\n0.50,7.80\n0.60,6.90\n0.70,6.30\n0.80,5.20\n0.90,4.40\n1.00,3.70\n1.10,3.20\n1.20,2.90\n1.40,2.60\n1.50,2.10\n1.60,1.70\n1.70,1.40\n1.80,1.10\n1.90,0.70\n2.00,0.50\n2.10,0.40\n2.20,0.30\n2.30,0.20\n2.40,0.10\n2.50,0.00\n";
+                var volumePointArray = volumePoint.split('\n');
+                var data = [[]];
+                $.each(volumePointArray, function (i, v) {
+                    var plot = v.split(',');
+                    var dataplot = [];
+                    $.each(plot, function (a, b) {
+                        dataplot.push(b);
+                    });
+                    data[0].push(dataplot);
+                });
+                return data;
+            }
+
+
+            $(function () {
+               
+               
+                var volumePoint = "0.00,0.00\n0.10,4.60\n0.20,7.40\n0.30,8.30\n0.40,8.20\n0.50,7.80\n0.60,6.90\n0.70,6.30\n0.80,5.20\n0.90,4.40\n1.00,3.70\n1.10,3.20\n1.20,2.90\n1.40,2.60\n1.50,2.10\n1.60,1.70\n1.70,1.40\n1.80,1.10\n1.90,0.70\n2.00,0.50\n2.10,0.40\n2.20,0.30\n2.30,0.20\n2.40,0.10\n2.50,0.00\n";
+                var volumePointArray = volumePoint.split('\n');
+                var data = [[]];
+                $.each(volumePointArray, function (i, v) {
+                    var plot = v.split(',');
+                    var dataplot = [];
+                    $.each(plot, function (a, b) {
+                        dataplot.push(parseFloat(b));
+                    });
+                    data[0].push(dataplot);
+                });
+                
+                var dataB = graphDataOriginal;
                 $('input').addClass('text-center');
-                $('#fetchData').on('click',function(){
+                $('#fetchData').on('click', function () {
                     $(this).addClass('disabled');
                     $.ajax({
                         crossOrigin: true,
@@ -229,6 +263,17 @@
                         }
                     });
                 });
+                
+                console.log(data);
+
+                $.jqplot('chartdiv', data,
+                        {title: 'Volume',
+                            axes: {yaxis: {min: -12, max: 12}},
+                            series: [{color: '#5FAB78'}]
+                        });
+
+
+
             })
         </script>
     </body>
