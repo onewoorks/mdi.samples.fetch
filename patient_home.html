@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+    <head>
+        <title>Patient API Poc</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='assets/customs/css/cd-design.css' />
+        <style>
+            body { background-color: cornflowerblue;}
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid" ng-controller="IndexCtrl">
+            <!-- Patient Details -->
+            <img src='kiosk/images/hiskkm.png' />
+            <div class='row'>
+                <div class='col-sm-2'>
+                    <div class='panel panel-default text-center'>
+                        <div class='panel-body'>
+                            <div class='center-block'>
+                                <h3 id="countPatient"></h3>
+                                <h4>Patient Count</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-sm-5'>
+                    <div class='panel panel-default'>
+                        <div class='panel-body text-center'>
+                            <a href='./patient_register.html'>Register</a>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-sm-5'>
+                    <div class='panel panel-default'>
+                        <div class='panel-body text-center'>
+                            <a href='./patient_search.html'>Search</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        
+        <script src="assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>	
+
+        <!--        <script src="assets/libs/angular/angular.min.js"></script>
+                <script src='controllers/patientController.js'></script>-->
+
+        <script>
+            $(function () {
+                var urliwang = 'http://172.19.2.181:8080/patient-examinations/810204085611';
+                var urlnajmi = 'http://172.19.2.106:8280/patients/1.0.0/api/persons.persons/personIdentification?id=12345';
+                var count = 'http://172.19.2.106:8280/patients/1.0.0/api/persons.persons/count';
+                $.ajax({
+                    crossOrigin: true,
+                    url: count,
+                    dataType: 'json',
+                    type: 'get',
+                    headers: {
+                        "Authorization": "Bearer c285b5bd-3085-363d-88d3-c367340c8a35"
+                    },
+                    success: function (a) {
+                        $('#countPatient').text(a);
+                    }
+                });
+
+//                $.getJSON('http://172.16.17.132:8080/patient-examinations/810204085611?callback=?', function(response){
+//                    $.each(response.data, function(i, gist){
+//                        console.log(gist);
+//                    });
+//                });
+            });
+
+        </script>
+
+    </body>
+</html>

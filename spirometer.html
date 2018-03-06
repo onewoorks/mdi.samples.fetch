@@ -84,6 +84,7 @@
                             </div>
                             <div class="col-sm-4 text-right">
                                 <div class="btn btn-primary btn-sm" id="fetchData">Fetch Data</div>
+                                <span class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" id="fetchAllExam"> Fetch Records</span>
                             </div>
                         </div>
 
@@ -212,14 +213,71 @@
             <footer class="text-center small">
                 HIS@KKM | Integration R&D 2017
             </footer>
+
+            <!-- Modal -->
+            <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content small">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Examination Records</h4>
+                        </div>
+                        <div class="modal-body text-center">
+                            <table id="tableRecods" class="table table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">DATE</th>
+                                        <th class="text-center">PEFR</th>
+                                        <th class="text-center">PRE FEV 1</th>
+                                        <th class="text-center">PRE FVC</th>
+                                        <th class="text-center">POST FEV 1</th>
+                                        <th class="text-center">POST FVC</th>
+                                        <th class="text-center">SELECT</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-sm" >Confirm Selection</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="./assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
         <script language="javascript" type="text/javascript" src="assets/libs/jqplot/jquery.jqplot.min.js"></script>
         <script>
             $(function () {
-
-
                 $('input').addClass('text-center');
+                
+                $('#fetchAllExam').on('click',function(){
+                    $.ajax({
+                        crossOrigin: true,
+                        url: 'http://localhost:8080/patient-examinations/810204085611',
+                        type: 'GET',
+                        dataType: "json",
+                        success : function(data){
+                            var records = data;
+                            var html = '';
+                            $.each(records, function(i,v){
+                                html += '<tr>';
+                                html += '<td class="text-center">'+ v.exam_date +'</td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"><input type="radio" /></td>';
+                                html += '</tr>';
+                            });
+                            $('#tableRecods tbody').html(html);
+                        }
+                    });
+                });
+                
                 $('#fetchData').on('click', function () {
                     $(this).addClass('disabled');
                     $.ajax({
