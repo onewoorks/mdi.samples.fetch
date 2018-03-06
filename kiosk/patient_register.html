@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+    <head>
+        <title>Patient API Poc</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='../assets/customs/css/cd-design.css' />
+        <link rel="stylesheet" href='../assets/libs/datepicker/css/datepicker.css' />
+        <script src="../assets/libs/sweetalert/lib/sweet-alert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../assets/libs/sweetalert/lib/sweet-alert.css">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="images/hiskkm.png" style="height: 30px;"/></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="text-uppercase"><a href="#">API | Patient Register And Retrieve <small>(POC)</small></a></li>
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <!-- Patient Details -->
+            <br>
+            <hr>
+
+            <ul class='breadcrumb'>
+                <li ><a href='./home.html'>Home</a></li>
+                <li class='active'>Patient Registeration</li>
+            </ul>
+
+            <div class='panel panel-default'>
+                <div class='panel-heading'>Patient Information</div>
+                <div class='panel-body'>
+                    <form id='patientRegister' class='form-horizontal'>
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Identification No</label>
+                            <div class='col-sm-4'>
+                                <input type='text' name='identifcation_no' class='form-control' />
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Name</label>
+                            <div class='col-sm-4'>
+                                <input type='text' name='patient_name' class='form-control' />
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Phone Number</label>
+                            <div class='col-sm-4'>
+                                <input type='text' name='contact_no' class='form-control' />
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Gender</label>
+                            <div class='col-sm-4'>
+                                <label class="radio-inline">
+                                    <input type="radio" name='gender' value="L" checked> Male
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name='gender' value="P"> Female
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Birth Date</label>
+                            <div class='col-sm-1'>
+                                <input type="text" class=" form-control text-center" name="birthdate_date" placeholder="day" id='d_year'/>
+                            </div>
+                            <div class='col-sm-1'>
+                                <input type="text" class=" form-control text-center" name="birthdate_month" placeholder="month" id='m_year'/>
+                            </div>
+                            <div class='col-sm-1'>
+                                <input type="text" class=" form-control text-center" name="birthdate_year" placeholder="year" id='b_year' />
+                            </div>
+                            <div class='col-sm-1'>
+                                <input type='hidden' name='age' class='form-control' />
+                                <input type='hidden' name='birthdate' />
+                            </div>
+                        </div>
+
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Races</label>
+                            <div class='col-sm-4'>
+                                <select name="race" class="form-control">
+                                    <option value="0100">Melayu</option>
+                                    <option value="0200">Cina</option>
+                                    <option value="0300">India</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Religion</label>
+                            <div class='col-sm-4'>
+                                <select name="religion" class="form-control">
+                                    <option value="1">Islam</option>
+                                    <option value="2">Kristian</option>
+                                    <option value="3">Buddha</option>
+                                    <option value="4">Hindu</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm hidden'>
+                            <label class='control-label col-sm-4'>Address</label>
+                            <div class='col-sm-4'>
+                                <textarea rows="4" class='form-control' ></textarea>
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <div class='col-sm-8 text-right'>
+                                <button type="submit" class='btn btn-primary '>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <script src="../assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../assets/libs/datepicker/js/bootstrap-datepicker.js"></script>
+
+        <script>
+
+
+            $(function () {
+
+                $('#b_year').blur(function () {
+                    var year = $(this).val();
+                    var age = parseInt(2017) - parseInt(year);
+                    $('[name=age]').val(age);
+                    var fullBirthDate = $('[name=birthdate_year]').val() + '-' + $('[name=birthdate_month]').val() + '-' + $('[name=birthdate_date]').val();
+                    $('[name=birthdate]').val(fullBirthDate);
+                });
+
+                $('#patientRegister').submit(function (e) {
+                    e.preventDefault();
+                    swal("Completed!", "", "success");
+
+
+
+                    var urlnajmi = 'http://172.19.2.106:8280/patients/1.0.0/api/persons.persons/createUser';
+                    $.ajax({
+                        crossOrigin: true,
+                        url: urlnajmi,
+                        data: {
+                            'patientname': $('[name=patient_name]').val(),
+                            'patientidentification': $('[name=identifcation_no]').val(),
+                            'patientphone': $('[name=contact_no]').val(),
+                            'birthdate': $('[name=birthdate]').val(),
+                            'religion': $('[name=religion]').val(),
+                            'gender': $('[name=gender]:checked').val(),
+                            'race': $('[name=race]').val(),
+                            'age': $('[name=age]').val()
+                        },
+                        type: 'get',
+                        headers: {
+                            "Authorization": "Bearer c285b5bd-3085-363d-88d3-c367340c8a35"
+                        },
+                        success: function (result) {
+                            swal({
+                                title: "Completed!",
+                                text: "You registration has been completed.",
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "green",
+                                confirmButtonText: "Ok!",
+                                closeOnConfirm: false
+                            },
+                                    function () {
+                                        window.location.href = 'home.html';
+                                    });
+                        }
+                    });
+                });
+            });
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+    <head>
+        <title>Patient API Poc</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='../assets/customs/css/cd-design.css' />
+    </head>
+    <body>
+
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="images/hiskkm.png" style="height: 30px;"/></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="text-uppercase"><a href="#">API | Patient Register And Retrieve <small>(POC)</small></a></li>
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container-fluid" ng-controller="IndexCtrl">
+            <!-- Patient Details -->
+
+
+            <ul class='breadcrumb'>
+                <li ><a href='./home.html'>Home</a></li>
+                <li class='active'>Patient Search</li>
+            </ul>
+
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class='panel panel-default'>
+                        <div class='panel-heading'>Patient Search</div>
+                        <div class='panel-body'>
+                            <form id='patientSearch' class='form-horizontal'>
+                                <div class='form-group form-group-sm'>
+                                    <label class='control-label col-sm-4'>Identification No</label>
+                                    <div class='col-sm-6'>
+                                        <input type='text' id='identification_no' name='identifcation_no' class='form-control' placeholder="new ic number" autocomplete="off" />
+                                    </div>
+                                </div>
+
+                                <div class='form-group form-group-sm'>
+                                    <label class='control-label col-sm-4'>Name</label>
+                                    <div class='col-sm-6'>
+                                        <input type='text' name='patient_name' class='form-control' placeholder="patient name"  autocomplete="off"/>
+                                    </div>
+                                </div>
+
+                                <div class='form-group form-group-sm'>
+                                    <label class='control-label col-sm-4'>Phone Number</label>
+                                    <div class='col-sm-6'>
+                                        <input type='text' name='contact_no' class='form-control' placeholder="contact no"  autocomplete="off"/>
+                                    </div>
+                                </div>
+
+                                <div class='form-group form-group-sm'>
+                                    <div class='col-sm-10 text-right'>
+                                        <button type='reset' class='btn btn-default btn-sm '>Reset</button>
+                                        <button type='submit' class='btn btn-primary btn-sm '><i class='glyphicon glyphicon-search' ></i> Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class='panel panel-default'>
+                        <div class='panel-heading'>Result Found</div>
+                        <div class='panel-body'>
+                            <table class='table table-bordered table-condensed'>
+                                <tr>
+                                    <th style='width: 40%;'>Nama</th>
+                                    <td id='patientName'></td>
+                                </tr>
+                                <tr>
+                                    <th>Identification No</th>
+                                    <td id='patientidentification'></td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number</th>
+                                    <td id='patientphone'></td>
+                                </tr>
+                                <tr>
+                                    <th>Date Of Birth</th>
+                                    <td id='patientdob'></td>
+                                </tr>
+                                <tr>
+                                    <th>Age</th>
+                                    <td id='patientage'></td>
+                                </tr>
+                                <tr>
+                                    <th>Gender</th>
+                                    <td id='patientgender'></td>
+                                </tr>
+                                <tr>
+                                    <th>Religion</th>
+                                    <td id='patientreligion'></td>
+                                </tr>
+                                <tr>
+                                    <th>Race</th>
+                                    <td id='patientrace'></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+
+        <script>
+
+            function Religion(code) {
+                var result = '';
+                switch (code) {
+                    case '1':
+                        result = 'ISLAM';
+                        break;
+                    case 2:
+                        result = "KRISTIAN";
+                        break;
+                    case 3:
+                        result = "BUDDHA";
+                        break;
+                    case 4:
+                        result = 'HINDU';
+                        break;
+                }
+                return result;
+            }
+
+            function Race(code) {
+                var result = '';
+                switch (code) {
+                    case '0100':
+                        result = 'MELAYU';
+                        break;
+                    case '0200':
+                        result = "CINA";
+                        break;
+                    case '0300':
+                        result = "INDIA";
+                        break;
+                }
+                return result;
+            }
+
+            function Gender(code) {
+                var result = '';
+                switch (code) {
+                    case 'L':
+                        result = 'MALE';
+                        break;
+                    case 'P':
+                        result = "FEMALE";
+                        break;
+                }
+                return result;
+            }
+            
+            function CleanDOB(dob){
+                var split = dob.split('T');
+                var split2 = split[0].split('-');
+                var dob = split2[2]+'/'+split2[1]+'/'+split2[0];
+                return dob;
+            }
+
+            $(function () {
+                $('#patientSearch').submit(function (e) {
+                    e.preventDefault();
+                    var urlnajmi = 'http://172.19.2.106:8280/patients/1.0.0/api/persons.persons/personIdentification?';
+                    $.ajax({
+                        crossOrigin: true,
+                        url: urlnajmi + 'id=' + $('#identification_no').val(),
+                        dataType: 'json',
+                        type: 'get',
+                        headers: {
+                            "Authorization": "Bearer c285b5bd-3085-363d-88d3-c367340c8a35"
+                        },
+                        success: function (data) {
+                            var patient = data;
+                            $('#patientName').text(patient.personName);
+                            $('#patientidentification').html(patient.personNewIc + ' <i>(newIc)<i>');
+                            $('#patientdob').text(CleanDOB(patient.personBirthdate));
+                            $('#patientage').text(patient.personAge + ' years old');
+                            $('#patientphone').text(patient.personCurPhoneHome);
+                            $('#patientgender').text(Gender(patient.genderCode));
+                            $('#patientreligion').text(Religion(patient.religionCode));
+                            $('#patientrace').text(Race(patient.raceCode));
+                        }
+                    });
+                });
+            });
+
+        </script>
+    </body>
+</html>
