@@ -15,27 +15,27 @@
             <div class="page-header text-center">
                 <h1>Order List for Devices <small>(All New Order Request)</small></h1>
             </div>
-            
+
             <ul class='breadcrumb'>
                 <li ><a href='./'>Home</a></li>
                 <li class='active'>Order List</li>
             </ul>
-            
+
             <div class='panel panel-info'>
                 <div class='panel-heading text-uppercase'>Order Request for Medical Devices</div>
                 <div class='panel-body'>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#all" data-toggle="pill">All</a></li>
-                        <li><a href="#ultrasound" data-toggle="pill">Ultrasound</a></li>
-                        <li><a href="#spirometer" data-toggle="pill">SpiroMeter</a></li>
-                        <li><a href="#endoscopy" data-toggle="pill">Endoscopy</a></li>
-                        <li><a href="#oral" data-toggle="pill">Oral</a></li>
-                        <li><a href="#fundus" data-toggle="pill">Fundus</a></li>
+                        <li class="active"><a href="#all" data-toggle="pill">All <span id="total_all"></span></a></li>
+                        <li><a href="#ultrasound" data-toggle="pill">Ultrasound  <span id="total_ultrasound"></span></a></li>
+                        <li><a href="#spirometer" data-toggle="pill">SpiroMeter  <span id="total_spirometer"></span></a></li>
+                        <li><a href="#endoscopy" data-toggle="pill">Endoscopy  <span id="total_endoscopy"></span></a></li>
+                        <li><a href="#oral" data-toggle="pill">Oral  <span id="total_oral"></span></a></li>
+                        <li><a href="#fundus" data-toggle="pill">Fundus  <span id="total_fundus"></span></a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="all" class="tab-pane fade in active">
                             <h3>All <small>All order list</small></h3>
-                            <table id='all_orders' class="table table-bordered table-condensed table-striped">
+                            <table id='all_orders' class="text-uppercase table table-bordered table-condensed table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -45,6 +45,7 @@
                                         <th>Appointment Date</th>
                                         <th>Status</th>
                                         <th>Ordered By</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -107,11 +108,21 @@
         <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
         <script language="javascript" type="text/javascript" src="assets/libs/jqplot/jquery.jqplot.min.js"></script>
         <script>
+            function convertDate(dateString) {
+                var p = dateString.split(/\D/g)
+                var result = '';
+                if(p.length==3){
+                    result = [p[2], p[1], p[0]].join("-");
+                } 
+                return result;
+            }
+
             function renderTable(table, data) {
                 var html = '';
                 var info = data.order_list;
                 var filter = table.replace('table_', '');
-                html += "<table class='table table-bordered table-condensed table-striped'>";
+                var total = 1;
+                html += "<table class='text-uppercase table table-bordered table-condensed table-striped'>";
                 html += "<thead>";
                 html += "<tr>";
                 html += "<th>No</th>";
@@ -121,26 +132,30 @@
                 html += "<th>Appointment Date</th>";
                 html += "<th>Status</th>";
                 html += "<th>Ordered By</th>";
+                html += "<th>Action</th>"
                 html += "</tr>";
                 html += "</thead>";
                 html += "<tbody>";
-
+                
                 $(info).each(function (k, v) {
                     if (v.descipline == filter) {
+                        total++;
                         html += "<tr>";
                         html += "<td>" + (k + 1) + "</td>";
                         html += "<td>" + v.his_order_id + "</td>";
-                        html += "<td>" + v.patient_mrn + "</td>";
-                        html += "<td>" + v.patient_name + "</td>";
-                        html += "<td></td>";
+                        html += "<td class='text-uppercase'>" + v.patient_mrn + "</td>";
+                        html += "<td class='text-uppercase'>" + v.patient_name + "</td>";
+                        html += "<td>" + convertDate(v.appointment_date) + "</td>";
                         html += "<td>" + v.status + "</td>";
                         html += "<td>" + v.ordered_by + "</td>";
+                        html += "<td class='text-center'><div class='btn btn-success btn-xs'>perform</div></td>"
                         html += "</tr>"
                     }
                 });
                 html += '</tbody>';
                 html += '</table>';
                 $('#' + table).html(html);
+                $('#total_'+filter).html('('+ total +')');
             }
         </script>
         <script>
@@ -152,13 +167,15 @@
                     order_list_html += "<td>" + (k + 1) + "</td>";
                     order_list_html += "<td>" + v.descipline + "</td>";
                     order_list_html += "<td>" + v.patient_mrn + "</td>";
-                    order_list_html += "<td>" + v.patient_name + "</td>";
-                    order_list_html += "<td></td>";
+                    order_list_html += "<td class='text-uppercase'>" + v.patient_name + "</td>";
+                    order_list_html += "<td>" + convertDate(v.appointment_date) + "</td>";
                     order_list_html += "<td>" + v.status + "</td>";
                     order_list_html += "<td>" + v.ordered_by + "</td>";
+                    order_list_html += "<td class='text-center'><div class='btn btn-success btn-xs'>Perform</div></td>"
                     order_list_html += "</tr>";
                 })
                 $('#all_orders tbody').html(order_list_html);
+                $('#total_all').html('('+ order_list.order_list.length +')');
 
                 var tables = $("div[id^=table_]");
 
