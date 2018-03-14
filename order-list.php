@@ -108,6 +108,24 @@
         <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
         <script language="javascript" type="text/javascript" src="assets/libs/jqplot/jquery.jqplot.min.js"></script>
         <script>
+            function statusAction(status){
+                var html;
+                switch(status){
+                    case 'NEW':
+                        html = "<div class='btn btn-primary btn-xs'>PERFORM</div>";
+                        break;
+                    case 'IN PROGRESS':
+                        html = "<div class='btn btn-warning btn-xs disabled'>IN PROGRESS</div>";
+                        break;
+                    case 'DISCONTINUED':
+                        html = "<div class='btn btn-danger btn-xs'>CANCELED</div>";
+                        break;
+                    case 'COMPLETED':
+                        html = "<div class='btn btn-success btn-xs'>COMPLETED</div>";
+                        break;
+                }
+                return html;
+            }
             function convertDate(dateString) {
                 var p = dateString.split(/\D/g)
                 var result = '';
@@ -148,7 +166,7 @@
                         html += "<td>" + convertDate(v.appointment_date) + "</td>";
                         html += "<td>" + v.status + "</td>";
                         html += "<td>" + v.ordered_by + "</td>";
-                        html += "<td class='text-center'><div class='btn btn-success btn-xs'>perform</div></td>"
+                        html += "<td class='text-center'>"+ statusAction(v.status) +"</td>"
                         html += "</tr>"
                     }
                 });
@@ -171,7 +189,7 @@
                     order_list_html += "<td>" + convertDate(v.appointment_date) + "</td>";
                     order_list_html += "<td>" + v.status + "</td>";
                     order_list_html += "<td>" + v.ordered_by + "</td>";
-                    order_list_html += "<td class='text-center'><div class='btn btn-success btn-xs'>Perform</div></td>"
+                    order_list_html += "<td class='text-center'>"+ statusAction(v.status) +"</td>"
                     order_list_html += "</tr>";
                 })
                 $('#all_orders tbody').html(order_list_html);
