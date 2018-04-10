@@ -180,7 +180,7 @@
             $(function () {
                 var order_list = JSON.parse('<?= $response; ?>');
                 var order_list_html = '';
-                $(order_list.order_list).each(function (k, v) {
+                $(order_list.entry).each(function (k, v) {
                     order_list_html += "<tr>";
                     order_list_html += "<td>" + (k + 1) + "</td>";
                     order_list_html += "<td>" + v.descipline + "</td>";
