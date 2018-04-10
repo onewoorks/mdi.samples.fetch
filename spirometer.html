@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>SPIROMETER Form</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='assets/customs/css/cd-design.css' />
+    </head>
+    <body>
+        <br>
+
+        <div class="container-fluid">
+
+            <div class="page-header text-center">
+                <h1>Ophthalmology | Special Diagnostic Procedures Notes <small>(POC)</small></h1>
+            </div>
+
+            <ul class='breadcrumb'>
+                <li ><a href='./'>Home</a></li>
+                <li class='active'>Spirometer</li>
+            </ul>
+
+            <div class="panel panel-default panel-primary">
+                <div class="panel-heading text-uppercase">Patient Info</div>
+                <div class="panel-body" style="font-size: 0.9em">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <img src="./images/common/person.png" class="img-responsive" alt="mohammed bin lee"/>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="col-sm-3" style="font-size:1.2em; font-weight: bold">Mohamed Bin Lee</div>
+                            <div class="col-sm-4">
+                                <ul class="list-unstyled">
+                                    <li>810204085611 (New IC)</li>
+                                    <li>HRPB24354234 (MRN)</li>
+                                    <li>27 Years Male</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-5">
+                                <ul class="list-unstyled">
+                                    <li><strong>Location :</strong> WAD (Ophthalmology) BED 06 (Third Class)</li>
+                                    <li><strong>Encounter Data & Time :</strong> 04/09/2016 09:32</li>
+                                    <li><strong>Admission Type :</strong> Elective</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="list-unstyled" style="color: red">
+                                <li><strong>Allergy :</strong> Paracetamol, Onion, Bee venom</li>
+                                <li><strong>Alert :</strong> Epilepsy, High risk for fall</li>
+                                <li><strong>Percaution :</strong> Contact (MRSA)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default panel-primary">
+                <div class="panel-heading">...</div>
+                <div class="panel-body">
+                    ...
+                </div>
+            </div>
+
+            <div class="panel panel-default panel-primary">
+                <div class="panel-heading">Examination</div>
+                <div class="panel-body">
+
+                    <form class="form-horizontal">
+                        <h5>Examination</h5>
+                        <div class="form-group form-group-sm">
+                            <div class="col-sm-12">
+                                <textarea rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-group-sm">
+                            <label class="control-label col-sm-4" style="text-align: left;">PEFR (INDICATED) (mls) </label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="pefr"/>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <div class="btn btn-primary btn-sm" id="fetchData">Fetch Data</div>
+                                <span class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" id="fetchAllExam"> Fetch Records</span>
+                            </div>
+                        </div>
+
+                        <h5>SPIROMETER</h5>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                PRE BRONCHODILATOR
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">PRE FEV1</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="pre_fev1" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">PERCENT PREDICTED</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="pre_fev1_percent" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">PRE FVC</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="pre_fvc" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">PERCENT PREDICTED</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="pre_fvc_percent" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                POST BRONCHODILATOR
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">POST FEV1</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="post_fev1" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">PERCENT PREDICTED</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="post_fev1_percent" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">POST FVC</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="post_fvc" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group form-group-sm">
+                                    <label class="control-label col-sm-7">PERCENT PREDICTED</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="post_fvc_percent" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-group-sm">
+                                <label class="control-label col-sm-4">REVERSIBILITY</label>
+                                <div class="col-sm-2">
+                                    <select class="form-control">
+                                        <option value="0">Please Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-default panel-primary">
+                <div class="panel-heading">...</div>
+                <div class="panel-body">
+                    <div class="col-sm-6 text-center">
+                        <center>
+                            <div id="chartdiv2" style="height:400px;width:600px; "></div>
+                        </center>
+                    </div>
+
+                    <div class="col-sm-6 text-center">
+                        <center>
+                            <div id="chartdiv" style="height:400px;width:600px; "></div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <footer class="text-center small">
+                HIS@KKM | Integration R&D 2017
+            </footer>
+
+            <!-- Modal -->
+            <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content small">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Examination Records</h4>
+                        </div>
+                        <div class="modal-body text-center">
+                            <table id="tableRecods" class="table table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">DATE</th>
+                                        <th class="text-center">PEFR</th>
+                                        <th class="text-center">PRE FEV 1</th>
+                                        <th class="text-center">PRE FVC</th>
+                                        <th class="text-center">POST FEV 1</th>
+                                        <th class="text-center">POST FVC</th>
+                                        <th class="text-center">SELECT</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-sm" >Confirm Selection</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+        <script language="javascript" type="text/javascript" src="assets/libs/jqplot/jquery.jqplot.min.js"></script>
+        <script>
+            $(function () {
+                $('input').addClass('text-center');
+                
+                $('#fetchAllExam').on('click',function(){
+                    $.ajax({
+                        crossOrigin: true,
+                        url: 'http://localhost:8080/patient-examinations/810204085611',
+                        type: 'GET',
+                        dataType: "json",
+                        success : function(data){
+                            var records = data;
+                            var html = '';
+                            $.each(records, function(i,v){
+                                html += '<tr>';
+                                html += '<td class="text-center">'+ v.exam_date +'</td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"></td>';
+                                html += '<td class="text-center"><input type="radio" /></td>';
+                                html += '</tr>';
+                            });
+                            $('#tableRecods tbody').html(html);
+                        }
+                    });
+                });
+                
+                $('#fetchData').on('click', function () {
+                    $(this).addClass('disabled');
+                    $.ajax({
+                        crossOrigin: true,
+                        url: 'https://mdi-spiro-heroku.herokuapp.com/spiro-forced-tests-single/4583',
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            var str = JSON.stringify(data, null, 12)
+                            var sp = $.parseJSON(str);
+                            $('[name=pefr]').val(sp[0].PEF);
+                            $('[name=pre_fev1]').val(sp[0].FEV1);
+                            $('[name=pre_fvc]').val(sp[0].FVC);
+                            $('[name=pre_fev1_percent]').val(sp[0].FEV1FVC);
+                            $('[name=pre_fvc_percent]').val(sp[0].FEV1FVC);
+                            $('[name=post_fev1]').val(sp[0].FEV1);
+                            $('[name=post_fvc]').val(sp[0].FVC);
+                            $('[name=post_fev1_percent]').val(sp[0].FEV1FVC);
+                            $('[name=post_fvc_percent]').val(sp[0].FEV1FVC);
+                        }
+                    });
+
+                    $.ajax({
+                        crossOrigin: true,
+                        url: 'https://mdi-spiro-heroku.herokuapp.com/exam-graph/4583',
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            var str = JSON.stringify(data, null, 12)
+                            var graphs = $.parseJSON(str);
+
+                            var volume;
+                            var time;
+                            $.each(graphs, function (i, v) {
+                                console.log(v.GRAPH_TYPE);
+                                if (v.GRAPH_TYPE == 'VOLUME') {
+                                    volume = v.POINTS;
+                                }
+
+                                if (v.GRAPH_TYPE == 'TIME') {
+                                    time = v.POINTS;
+                                }
+                            });
+
+                            var volumePoint = "0.00,0.00\n0.10,4.60\n0.20,7.40\n0.30,8.30\n0.40,8.20\n0.50,7.80\n0.60,6.90\n0.70,6.30\n0.80,5.20\n0.90,4.40\n1.00,3.70\n1.10,3.20\n1.20,2.90\n1.40,2.60\n1.50,2.10\n1.60,1.70\n1.70,1.40\n1.80,1.10\n1.90,0.70\n2.00,0.50\n2.10,0.40\n2.20,0.30\n2.30,0.20\n2.40,0.10\n2.50,0.00\n";
+//                            var volumePoint = volume;
+                            var volumePointArray = volumePoint.split('\n');
+                            var data = [[]];
+                            $.each(volumePointArray, function (i, v) {
+                                var plot = v.split(',');
+                                var dataplot = [];
+                                $.each(plot, function (a, b) {
+                                    dataplot.push(parseFloat(b));
+                                });
+                                data[0].push(dataplot);
+                            });
+
+                            var timePoint = "0.00,0.00\n0.10,0.10\n0.20,0.80\n0.30,1.20\n0.40,1.40\n0.50,1.60\n0.60,1.70\n0.70,1.80\n0.80,1.90\n0.90,2.00\n1.20,2.10\n1.60,2.20\n2.20,2.30\n2.80,2.40\n3.80,2.40\n";
+//                            var timePoint = time;
+                            var timePointArray = timePoint.split('\n');
+                            var dataTime = [[]];
+                            $.each(timePointArray, function (i, v) {
+                                var plot = v.split(',');
+                                var dataplot = [];
+                                $.each(plot, function (a, b) {
+                                    dataplot.push(parseFloat(b));
+                                });
+                                dataTime[0].push(dataplot);
+                            });
+
+                            $.jqplot('chartdiv', data,
+                                    {
+                                        title: 'Volume',
+                                        axes: {
+                                            yaxis: {min: -12, max: 12},
+                                            xaxis: {
+                                                tickOptions: {
+                                                    showMark: false
+                                                },
+                                                min: 0,
+                                                max: 4
+                                            }
+                                        },
+                                        series: [{color: '#5FAB78'}],
+                                        grid: {
+                                            background: '#ffffff',
+                                            shadow: false
+                                        },
+                                        rendererOptions: {
+                                            smooth: true
+                                        }
+                                    });
+
+
+                            $.jqplot('chartdiv2', dataTime,
+                                    {
+                                        title: 'Time',
+                                        axes: {
+                                            yaxis: {min: -12, max: 12},
+                                            xaxis: {min: 0, max: 4}
+                                        },
+                                        series: [{color: '#5FAB78'}],
+                                        grid: {
+                                            background: '#ffffff',
+                                            shadow: false
+                                        },
+                                        rendererOptions: {
+                                            smooth: true
+                                        }
+                                    });
+
+                            $('.jqplot-xaxis').css({'zIndex': 10, 'top': '200px', 'font-weight': 'normal'});
+
+                        }
+                    });
+                });
+
+
+            })
+        </script>
+    </body>
+</html>

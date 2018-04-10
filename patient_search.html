@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+    <head>
+        <title>Patient API Poc</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='assets/customs/css/cd-design.css' />
+    </head>
+    <body>
+        <div class="container-fluid" ng-controller="IndexCtrl">
+            <!-- Patient Details -->
+            <br>
+
+            <div class="page-header text-center">
+                <h1>API | Patient Register And Retrieve <small>(POC)</small></h1>
+            </div>
+
+            <ul class='breadcrumb'>
+                <li ><a href='./patient_home.html'>Home</a></li>
+                <li class='active'>Patient Search</li>
+            </ul>
+
+            <div class='panel panel-default'>
+                <div class='panel-heading'>Patient Search</div>
+                <div class='panel-body'>
+                    <form id='patientSearch' class='form-horizontal'>
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Identification No</label>
+                            <div class='col-sm-4'>
+                                <input type='text' id='identification_no' name='identifcation_no' class='form-control' placeholder="new ic number" />
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Name</label>
+                            <div class='col-sm-4'>
+                                <input type='text' name='patient_name' class='form-control' placeholder="patient name"/>
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <label class='control-label col-sm-4'>Phone Number</label>
+                            <div class='col-sm-4'>
+                                <input type='text' name='contact_no' class='form-control' placeholder="contact no" />
+                            </div>
+                        </div>
+
+                        <div class='form-group form-group-sm'>
+                            <div class='col-sm-8 text-right'>
+                                <button type='reset' class='btn btn-default '>Reset</button>
+                                <button type='submit' class='btn btn-primary '><i class='glyphicon glyphicon-search' ></i> Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class='panel panel-default'>
+                <div class='panel-heading'>Result Found</div>
+                <div class='panel-body'>
+                    <table class='table table-bordered'>
+                        <tr>
+                            <th>Nama</th>
+                            <td id='patientName'></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+        <script>
+            $(function () {
+                $('#patientSearch').submit(function (e) {
+                    e.preventDefault();
+                    var urlnajmi = 'http://172.19.2.106:8280/patients/1.0.0/api/persons.persons/personIdentification?';
+                    $.ajax({
+                        crossOrigin: true,
+                        url: urlnajmi + 'id=' + $('#identification_no').val(),
+                        dataType: 'json',
+                        type: 'get',
+                        headers: {
+                            "Authorization": "Bearer c285b5bd-3085-363d-88d3-c367340c8a35"
+                        },
+                        success: function (data) {
+                            var patient = data;
+                            $('#patientName').text(patient.personName);
+                        }
+                    });
+                });
+            });
+
+        </script>
+    </body>
+</html>
