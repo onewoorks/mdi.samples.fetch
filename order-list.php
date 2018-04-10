@@ -193,7 +193,7 @@
                     order_list_html += "</tr>";
                 })
                 $('#all_orders tbody').html(order_list_html);
-                $('#total_all').html('('+ order_list.order_list.length +')');
+                $('#total_all').html('('+ order_list.total +')');
 
                 var tables = $("div[id^=table_]");
 
