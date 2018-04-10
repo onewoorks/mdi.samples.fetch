@@ -178,7 +178,7 @@
         </script>
         <script>
             $(function () {
-                var order_list = JSON.parse('<?= $response; ?>');
+                var order_list = JSON.parse('<?= $response.entry; ?>');
                 var order_list_html = '';
                 $(order_list.order_list).each(function (k, v) {
                     order_list_html += "<tr>";
