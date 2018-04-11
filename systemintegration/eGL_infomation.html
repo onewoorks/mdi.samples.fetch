@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+    <head>
+        <title>Request Patient eGL</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='../assets/customs/css/cd-design.css' />
+        <link rel="stylesheet" href='../assets/libs/datepicker/css/datepicker.css' />
+    </head>
+    <body>
+        <div class="container-fluid" ng-controller="IndexCtrl">
+            <!-- Patient Details -->
+            <br>
+
+            <div class="page-header text-center">
+                <h1>PMS | Request Patient eGL <small>(POC)</small></h1>
+            </div>
+
+            <ul class='breadcrumb'>
+                <li ><a href='/systemintegration'>System Integration</a></li>
+                <li class='active'>eGL</li>
+            </ul>
+
+            <!-- Vital Signs Input -->
+            <div class="panel panel-default">
+                <div class="panel-heading">Search eGL</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-condensed small">
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Patient Name</span>
+                                        <input class="form-control input-sm input-sm" ng-model="patient_name" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Identification</span>
+                                        <input class="form-control input-sm input-sm" ng-model="identification_no" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Relationship</span>
+                                        <select class="form-control input-sm" ng-model="relationship" >
+                                            <option value="FTH">Father</option>
+                                            <option value="MTH">Mother</option>
+                                            <option value="SEL">Self</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            &nbsp;&nbsp;
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <div class=''>
+                                <button class="btn btn-info btn-sm" ng-click="searchEgl()">Search eGL</button>
+                            </div>
+                        </div>
+                    </div>				
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Result Search eGL</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-condensed small"> 
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class='input-group input-group-sm'>
+                                                <span class='input-group-addon'>Ministry Name</span>
+                                                <input class="form-control input-sm input-sm" ng-model="egl.ministry_name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Officer</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.officer_name" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Identification No</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.identification_no" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Salary Grade</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.salary_grade" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Position / Rank</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.position" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Relationship</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.relationship" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Salary</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.salary" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>GL Ref.No</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.ref_no" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Valid Date</span>
+                                        <input class="form-control input-sm input-sm" ng-model="valid_date" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group date' >
+                                        <span class='input-group-addon'>GL Date</span>
+                                        <input class="form-control input-sm input-sm dp" ng-model="gl_date" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Expired Date</span>
+                                        <input class="form-control input-sm input-sm" ng-model="expired_date" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Entitlement Ward</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.entitlement" />
+                                    </div>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class='input-group input-group-sm'>
+                                                <span class='input-group-addon'>Department Detail</span>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Employer</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.employer" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Office Phone</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.office_phone" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Address</span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.entitlement" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Postcode</span>
+                                        <input class="form-control input-sm input-sm" ng-model="expired_date" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'></span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.entitlement" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>State</span>
+                                        <input class="form-control input-sm input-sm" ng-model="expired_date" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'></span>
+                                        <input class="form-control input-sm input-sm" ng-model="egl.entitlement" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>City</span>
+                                        <input class="form-control input-sm input-sm" ng-model="expired_date" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>			
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+        <script src="../assets/libs/datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="../controllers/indexController.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('.dp').datepicker();
+            });
+        </script>
+    </body>
+</html>
