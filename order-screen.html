@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html ng-app="orderApp">
+    <head>
+        <title>Order Worklist</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='assets/customs/css/cd-design.css' />
+        <link rel='stylesheet' href='assets/customs/css/orders.css' />
+        <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div ng-controller="OrderController" style="padding-top:1px;">
+
+            <div class="page-header text-center">
+                <h1 class="list-header">{{orderTitle}}</h1>
+            </div>
+
+            <div class="container-fluid" >
+
+                <div class="row" style="margin-bottom: 16px;">
+                    <div class="col-sm-1">
+                        <div class="dropdown">
+                            <button class="btn btn-lg btn-block btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fas fa-bars fa-lg"></i>
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu" style="font-size: 1.2em; text-transform: uppercase; width:400px;">
+                                <li class="dropdown-header" style="margin-top: 6px; font-size:1.4em">{{medical_device}} MENU</li>
+                                <li class="divider"></li>
+                                <li style="padding-top:8px; padding-bottom:8px"><a href="#">History </a></li>
+                                <li style="padding-top:8px; padding-bottom:8px"><a href="#">Orders Schedule</a></li>
+                                <li style="padding-top:8px; padding-bottom:8px"><a href="#">Device Info</a></li>
+                                <li class="divider"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-11">
+                        <div class="row">
+                            <div class="col-sm-3"><a href="#" class="btn btn-primary btn-block btn-lg">NEW</a></div>
+                            <div class="col-sm-3"><a href="#" class="btn btn-warning btn-block btn-lg">IN PROGRESS</a></div>
+                            <div class="col-sm-3"><a href="#" class="btn btn-success btn-block btn-lg">COMPLETED</a></div>
+                            <div class="col-sm-3"><a href="#" class="btn btn-danger btn-block btn-lg">DISCONTINUED</a></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-default panel-primary">
+                    <div class='panel-heading'><div class='panel-heading-size'>List Of Today Orders : {{today}}</div></div>
+                    <table class='table table-bordered table-striped list-size'>
+                        <thead>
+                            <tr>
+                                <th style="vertical-align: middle">No</th>
+                                <th class='text-uppercase text-center' style="vertical-align: middle">Patient Id</th>
+                                <th class='text-uppercase text-center' style="vertical-align: middle">Patient Name</th>
+                                <th class='text-uppercase text-center' style="vertical-align: middle">Procedure</th>
+                                <th class='text-uppercase text-center' style='width: 180px;'>{{tableAction}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(index, order) in orderlist">
+                                <td>{{index + 1}}</td>
+                                <td class='text-center' style='vertical-align: middle'>{{order.patient_id}}</td>
+                                <td style='vertical-align: middle'>{{order.patient_name}}</td>
+                                <td style='vertical-align: middle'>{{order.his_order_discipline}}</td>
+                                <td class='text-center'>
+                                    <div class="non-dicom-worklist">
+                                        <div ng-if="order.order_status == 'NEW'">
+                                            <button class='btn btn-primary btn-lg btn-block ' data-toggle='modal' ng-click='performTask(order.his_order_id)'>NEW</button>
+                                        </div>
+                                        <div ng-if="order.order_status == 'IN PROGRESS'">
+                                            <button class='btn btn-warning btn-lg btn-block  clickme' >IN PROGRESS</button>
+                                        </div>
+                                        <div ng-if="order.order_status == 'COMPLETED'">
+                                            <button class='btn btn-success btn-lg btn-block disabled'>COMPLETED</button>
+                                        </div>
+                                        <div ng-if="order.order_status == 'DISCONTINUED'">
+                                            <button class='btn btn-danger btn-lg btn-block'>DISCONTINUE</button>
+                                        </div>
+                                    </div>
+                                    <div class="dicom-worklist">
+                                        <div ng-if="order.order_status == 'NEW'">
+                                            <button class='btn btn-primary btn-lg btn-block disabled' data-toggle='modal' ng-click='performTask(order.his_order_id)'>NEW</button>
+                                        </div>
+                                        <div ng-if="order.order_status == 'IN PROGRESS'">
+                                            <button class='btn btn-warning btn-lg btn-block disabled' >IN PROGRESS</button>
+                                        </div>
+                                        <div ng-if="order.order_status == 'COMPLETED'">
+                                            <button class='btn btn-success btn-lg btn-block disabled'>COMPLETED</button>
+                                        </div>
+                                        <div ng-if="order.order_status == 'DISCONTINUE'">
+                                            <button class='btn btn-danger btn-lg btn-block disabled'>DISCONTINUE</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class='modal-header text-center'>
+                            <h1>PERFORMING ENDOSCOPY OPERATION</h1>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='row'>
+                                <div class='col-sm-12'>
+                                    <table class='table table-bordered list-size-process'>
+                                        <tbody>
+                                            <tr>
+                                                <th>Patient Id</th>
+                                                <td>{{patient.patient_id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Patient Name</th>
+                                                <td>{{patient.patient_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Patient Gender</th>
+                                                <td>{{patient.patient_gender}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Patient Dob</th>
+                                                <td>{{patient.patient_dob}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Procedure</th>
+                                                <td>{{patient.his_order_discipline}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-6 text-left">
+                                    <div class="row">
+                                        <div class="col-sm-3" style="color:grey"><i class="fas fa-spinner fa-pulse fa-3x"></i></div>
+                                        <div class="col-sm-9 blink">Capturing Images & Videos</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 text-right">
+                                    <div class="btn btn-success btn-lg">COMPLETE</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='bottom-marking'>
+                <div class="row">
+                    <div class="col-sm-4 text-left">
+                        <div class="online-indicator">
+                            <i class="fas fa-file-medical-alt"></i>
+                            <span style="margin-left:12px;">DEVICE IS {{device_online}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">{{footer}}</div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+    <script src="assets/jquery/jquery-3.1.1.min.js"></script>
+    <script src='assets/bootstrap/js/bootstrap.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script src="controllers/orderscreenController.js"></script>
+    <script>
+
+    </script>
+
+</html>
