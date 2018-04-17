@@ -1,0 +1,50 @@
+.list-header {
+    font-size:3em;
+    text-transform: uppercase
+}
+.list-size {
+    font-size:2em;
+    text-transform: uppercase
+}
+
+.list-size-process {
+    font-size:1.4em;
+    text-transform: uppercase
+}
+
+.panel-heading-size {
+    font-size:1.4em;
+    text-transform: uppercase
+}
+
+@-webkit-keyframes blink {  
+  from { opacity: 1.0; }
+  to { opacity: 0.0; }
+}
+
+.blink {
+    font-size:1.4em; padding-top:8px;font-style: italic;
+    color: '#dedede';
+  -webkit-animation-name: blink;  
+  -webkit-animation-iteration-count: infinite;  
+  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+  -webkit-animation-duration: 2s; 
+}
+
+.bottom-marking {
+    text-align: right;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    bottom:0;
+    position: fixed;
+    padding:12px 20px;
+    font-size: 1.2em;
+    font-style: italic;
+    background-color: #efefef;
+}
+.online {
+    color:#489f48
+}
+.offline {
+    color:#F98262;
+}
