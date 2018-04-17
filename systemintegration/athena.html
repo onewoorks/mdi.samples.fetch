@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+    <head>
+        <title>Athena</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='../assets/customs/css/cd-design.css' />
+    </head>
+    <body>
+        <div class="container-fluid" ng-controller="IndexCtrl">
+            <!-- Patient Details -->
+            <br>
+
+            <div class="page-header text-center">
+                <h1>Order List | Athena <small>(POC)</small></h1>
+            </div>
+
+            <ul class='breadcrumb'>
+                <li ><a href='/systemintegration'>Home</a></li>
+                <li class='active'>Athena</li>
+            </ul>
+
+            <div class="panel panel-default panel-primary">
+                <div class="panel-heading">Patient Info</div>
+                <div class="panel-body" style="font-size: 0.8em">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <img src="../images/common/person.png" class="img-responsive" alt="CHIANG YUEN HOI"/>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="col-sm-3" style="font-size:1.2em; font-weight: bold">CHIANG YUEN HOI</div>
+                            <div class="col-sm-4">
+                                <ul class="list-unstyled">
+                                    <li>390328085674 (New IC)</li>
+                                    <li>HRPB24354234 (MRN)</li>
+                                    <li>79 Years Male</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-5">
+                                <ul class="list-unstyled">
+                                    <li><strong>Location :</strong> WAD (Ophthalmology) BED 06 (Third Class)</li>
+                                    <li><strong>Encounter Data & Time :</strong> 04/09/2016 09:32</li>
+                                    <li><strong>Admission Type :</strong> Elective</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="list-unstyled" style="color: red">
+                                <li><strong>Allergy :</strong> Paracetamol, Onion, Bee venom</li>
+                                <li><strong>Alert :</strong> Epilepsy, High risk for fall</li>
+                                <li><strong>Percaution :</strong> Contact (MRSA)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Order List -->
+            <div class="panel panel-default">
+                <div class="panel-heading">Order Management</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-condensed small">
+                        <thead>
+                            <tr><th colspan="4">
+                                    <button class="btn btn-primary btn-sm" ng-click="">LABORATORY</button>
+                                    <button class="btn btn-primary btn-sm" ng-click="">RADIOLOGY</button>
+                                    <button class="btn btn-primary btn-sm" ng-click="">MEDICATION</button>
+                                    <button class="btn btn-primary btn-sm" ng-click="">TREATMENT/PROCEDURE</button>
+                                    <button class="btn btn-primary btn-sm" ng-click="">GENERAL ORDER</button>
+                                    <button class="btn btn-primary btn-sm" ng-click="">ORDER SETS</button>
+                                    <button class="btn btn-primary btn-sm" ng-click="">Next Of Kin Order</button>
+                                </th>
+                            </tr>				
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Order Category</span>
+                                        <select class="form-control input-sm" ng-model="order_catagory" >
+                                            <option value="go">General Orders</option>
+                                            <option value="lab">Laboratory</option>
+                                            <option value="rad">Radiology</option>
+                                            <option value="treatment">Treatment</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group date' >
+                                        <span class='input-group-addon'>Order Date From</span>
+                                        <input class="form-control input-sm input-sm dp" ng-model="order_date_from" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Order Status</span>
+                                        <select class="form-control input-sm" ng-model="order_status" >
+                                            <option value="go">Submitted</option>
+                                            <option value="lab">Verified</option>
+                                            <option value="rad">Resume</option>
+                                            <option value="treatment">Completed</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Order No</span>
+                                        <input class="form-control input-sm input-sm" ng-model="order_no" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group date' >
+                                        <span class='input-group-addon'>Order Date To</span>
+                                        <input class="form-control input-sm input-sm dp" ng-model="order_date_to" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group input-group-sm'>
+                                        <span class='input-group-addon'>Relationship Order</span>
+                                        <select class="form-control input-sm" ng-model="relationship" >
+                                            <option value="go">Father</option>
+                                            <option value="lab">Mother</option>
+                                            <option value="rad">Sister</option>
+                                            <option value="treatment">Brother</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><button class="btn btn-primary btn-sm" ng-click="">Search</button></td>
+                                
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Order No</th>
+                                <th class="text-center">Order Date & Time</th>
+                                <th class="text-center">Order Description</th>
+                                <th class="text-center">Order Category</th>
+                                <th class="text-center">Relationship</th>
+                                <th class="text-center">Order By</th>
+                                <th class="text-center">Order Location</th>
+                                <th class="text-center">Priority</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Option</th>
+                                <th class="text-center">Attachment</th>
+                                <th class="text-center">Audit Trail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="" ng-click="athenaReport()">123456</a>
+                                    <input type="hidden" ng-model="person_id" ng-init="person_id='390328085674'" value="390328085674"  />
+                                    <input type="hidden" ng-model="person_name" ng-init="person_name='CHIANG YUEN HOI'" value ="CHIANG YUEN HOI">
+                                    <input type="hidden" ng-model="order_date" ng-init="order_date='20171025142846'" ng-value="20171025142846">
+                                </td>
+                                <td>20171025142846</td>
+                                <td>Holter Test</td>
+                                <td></td>
+                                <td>-</td>
+                                <td>Admin</td>
+                                <td>W1A</td>
+                                <td>Routine</td>
+                                <td>Submitted</td>
+                                <td></td>
+                                <td>Test</td>
+                                <td>View</td>
+
+			
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-8">
+
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <div class=''>
+                            </div>
+                        </div>
+                    </div>				
+                </div>
+            </div>
+       
+
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+        <script src="../assets/libs/datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="../controllers/indexController.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('.dp').datepicker();
+            });
+        </script>
+    </body>
+</html>

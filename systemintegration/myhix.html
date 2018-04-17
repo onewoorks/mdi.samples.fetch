@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+    <head>
+        <title>Request MyHix ID</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='../assets/customs/css/cd-design.css' />
+        <link rel="stylesheet" href='../assets/libs/datepicker/css/datepicker.css' />
+    </head>
+    <body>
+        <div class="container-fluid" ng-controller="IndexCtrl">
+            <!-- Patient Details -->
+            <br>
+
+            <div class="page-header text-center">
+                <h1>MyHix | Request MyHix ID / Request MyHix DS <small>(POC)</small></h1>
+            </div>
+
+            <ul class='breadcrumb'>
+                <li ><a href='/systemintegration'>System Integration</a></li>
+                <li class='active'>MyHix</li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">MyHix Id</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-condensed small">
+                        <thead>
+                            <tr><th colspan="6">Patient Detail </th></tr>				
+                            <tr>	
+                                <th class="text-center">MRN</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">MyHix ID</th>
+                                <th class="text-center">Identification</th><!-- vsm.hr -->
+                                <th class="text-center">Gender</th><!-- vsm.respiration -->
+                                <th class="text-center">Age</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><input class="form-control input-sm input-sm" ng-model="patient_mrn" /></td>
+                                <td>
+                                    <input class="form-control input-sm input-sm" ng-model="patient_name" /> <br>
+                                    <button class="btn btn-info btn-sm" ng-click="getMyhixInquiry()">Inquiry MyHix</button>
+                                </td>
+                                <td>
+                                    <div class=''>
+                                        <input class="form-control input-sm input-sm" ng-model="patient_myhix_id" /> <br>
+                                        <button class="btn btn-info btn-sm" ng-click="getMyhixId()">Get MyHIx ID</button>
+                                    </div>
+                                </td>
+                                <td><input class="form-control input-sm input-sm" ng-model="patient_identification" /></td>
+                                <td><input class="form-control input-sm input-sm" ng-model="patient_gender" /></td>
+                                <td><input class="form-control input-sm input-sm" ng-model="patient_age" /></td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            &nbsp;&nbsp;
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            
+                        </div>
+                    </div>				
+                </div>
+            </div>
+            <!-- Inquiry MyHix-->
+            <div class="panel panel-default">
+                <div class="panel-heading">Inquiry MyHix</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped table-condensed small">
+                        <thead>
+                            <tr><th colspan="6">Result Inquiry</th></tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td colspan="6">
+                                    <textarea class="form-control input-sm input-sm" ng-model="patient_mrn" /></textarea>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>                    
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            &nbsp;&nbsp;
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            
+                        </div>
+                    </div>				
+                </div>
+            </div>
+            
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+        <script src="../assets/libs/datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="../controllers/indexController.js"></script>
+    </body>
+</html>
