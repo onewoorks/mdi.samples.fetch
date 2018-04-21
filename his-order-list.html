@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html ng-app="hisOrderApp">
+    <head>
+        <title>HIS ORDER LIST</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='assets/customs/css/cd-design.css' />
+        <link rel="stylesheet" href='assets/libs/datepicker/css/datepicker.css' />
+        <link rel='stylesheet' href='./assets/customs/css/orders.css' />
+        <script src="./assets/libs/fontawesome/all.js"></script>
+    </head>
+    <body>
+        <div class='container-fluid' ng-controller="hisOrderController">
+            <div class="page-header text-center">
+                <h1>FIELD TEST | Computerised Order Entry (COE)</h1>
+            </div>
+
+
+            <div class='panel panel-primary'>
+                <div class='panel-heading'>
+                    <i class='fas fa-user-circle'></i> PATIENT INFORMATION
+                </div>
+                <div class='panel-body'>
+                    <div class='row'>
+                        <div class='col-sm-1'>
+                            <img src='./images/common/person.png' alt='patient_image' class='img-responsive' />
+                        </div>
+                        <div class="col-sm-11">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Patient Name :</strong></div>
+                                        <div class="col-sm-7">{{patient_name}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Identification No :</strong></div>
+                                        <div class="col-sm-7">{{patient_identification_no}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Date Of Birth :</strong></div>
+                                        <div class="col-sm-7">{{patient_dob}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Gender :</strong></div>
+                                        <div class="col-sm-7">{{patient_gender}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Patient Id :</strong></div>
+                                        <div class="col-sm-7" id='patient_id'>{{patient_id}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong></strong></div>
+                                        <div class="col-sm-7"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class='panel panel-primary'>
+                <div class='panel-heading'>
+                    ORDER LIST
+                </div>
+                <div class='panel-body'>
+                    <div class='row'>
+                        <div class='col-sm-12'>
+                            <ul class='list-inline'>
+                                <li><a href='#' class='btn btn-primary'>LABORATORY</a></li>
+                                <li><a href='#' class='btn btn-primary'>RADIOLOGY</a></li>
+                                <li><a href='#' class='btn btn-primary'>MEDICATION</a></li>
+                                <li><a href='#' class='btn btn-primary'>GENERAL ORDER</a></li>
+                                <li><a href='#' class='btn btn-primary'>PROCEDURE TREATMENT</a></li>
+                                <li><a href='#' class='btn btn-primary'>ORDER SET</a></li>
+                                <li><a href='#' class='btn btn-primary'>DIET</a></li>
+                                <li><a href='#' class='btn btn-primary'>NEXT OF KIN ORDER</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class='row'>
+                        <div class='col-sm-12'>
+                            <div class='panel panel-default'>
+                                <div class='panel-heading'>Order Information</div>
+                                <div class='panel-body'>
+                                    <form class='form-horizontal'>
+                                        <div class='row'>
+                                            <div class='col-sm-9'>
+                                                <div class='row'>
+                                                    <div class='col-sm-4'>
+                                                        <div class='form-group'>
+                                                            <label class='control-label col-sm-6'>Order Category</label>
+                                                            <div class='col-sm-6'>
+                                                                <select name='order_category' class='form-control'>
+                                                                    <option value='00'>Please Select</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='col-sm-4'>
+                                                        <div class='form-group'>
+                                                            <label class='control-label col-sm-6'>Order Date From</label>
+                                                            <div class='col-sm-6'>
+                                                                <div class='input-group'>
+                                                                    <input type='text' class='form-control dp' />
+                                                                    <span class='input-group-addon'><i class='glyphicon glyphicon-calendar'></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='col-sm-4'>
+                                                        <div class='form-group'>
+                                                            <label class='control-label col-sm-6'>Order Status</label>
+                                                            <div class='col-sm-6'>
+                                                                <select name='order_category' class='form-control'>
+                                                                    <option value='00'>Please Select</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class='row'>
+                                            <div class='col-sm-9'>
+                                                <div class='row'>
+                                                    <div class='col-sm-4'>
+                                                        <div class='form-group'>
+                                                            <label class='control-label col-sm-6'>Order No</label>
+                                                            <div class='col-sm-6'>
+                                                                <input type='text' name='order_no' class='form-control' />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='col-sm-4'>
+                                                        <div class='form-group'>
+                                                            <label class='control-label col-sm-6'>Order Date To</label>
+                                                            <div class='col-sm-6'>
+                                                                <div class='input-group'>
+                                                                    <input type='text' class='form-control dp' />
+                                                                    <span class='input-group-addon'><i class='glyphicon glyphicon-calendar'></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='col-sm-4'>
+                                                        <div class='form-group'>
+                                                            <label class='control-label col-sm-6'>Relationship Order</label>
+                                                            <div class='col-sm-6'>
+                                                                <select name='order_category' class='form-control'>
+                                                                    <option value='00'>Please Select</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class='col-sm-3'>
+                                                <div class='btn btn-primary'>
+                                                    <i class='glyphicon glyphicon-search'></i> Search
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <table class="table table-bordered table-condensed" style="font-size: 0.9em">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Order No</th>
+                                <th class="text-center"><input type="checkbox" /></th>
+                                <th class="text-center">Order Date & Time</th>
+                                <th class="text-center">Order Description</th>
+                                <th class="text-center">Order Category</th>
+                                <th class="text-center">Relationship</th>
+                                <th class="text-center">Order By</th>
+                                <th class="text-center">Order Location</th>
+                                <th class="text-center">Priority</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Option</th>
+                                <th class="text-center">Attachment</th>
+                                <th class="text-center">Audit Trail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr ng-repeat='coe in coeList' ng-class="tableRowStyle('{{coe.order_category.toLowerCase()}}')">
+                                <td class="text-center">{{coe.his_order_id}}</td>
+                                <td class="text-center"></td>
+                                <td class="text-center">{{coe.order_date_time}}</td>
+                                <td class="text-center">{{coe.order_description}}</td>
+                                <td class="text-center">{{coe.order_category}}</td>
+                                <td class="text-center">{{ (coe.relationship == 'null' || coe.relationship == '') ? '-' : coe.relationship}}</td>
+                                <td class="text-center">{{coe.order_by}}</td>
+                                <td class="text-center">{{coe.order_location}}</td>
+                                <td class="text-center">{{(coe.priority == 'null'||coe.priority=='')?'-': coe.priority}}</td>
+                                <td class="text-center">
+                                    <div ng-if='coe.attachment == 1'>
+                                        <a href='#' ng-click='selectedImages(coe)'>{{coe.status}}</a>
+                                    </div>
+                                    <div ng-if='coe.attachment != 1'>
+                                        {{coe.status}}
+                                    </div>
+                                </td>
+                                <td class="text-center">{{coe.order_option}}</td>
+                                <td class="text-center">
+                                    <div ng-if="coe.status == 'COMPLETED' && coe.report_type != 'null'">
+                                        <div ng-if="coe.report_type == 'image/jpeg'">
+                                            <i class="fas fa-file-image fa-lg" ng-click='openReport(coe)'  style='cursor: pointer'></i>
+                                        </div>
+                                        <div ng-if="coe.report_type == 'application/pdf'" ng-click='openPdf(coe)' style='cursor: pointer'>
+                                            <i class="fas fa-file-pdf fa-lg"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center"><a href='#'>View</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class='btn btn-primary'>
+                        <i class='glyphicon glyphicon-ok'></i> CONFIRM
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal -->
+            <div id="modal_report" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Image collection from medical device</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id='contentNya'></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id='save_selected' ><i class="fas fa-save"></i> SAVE SELECTED</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class='fas fa-times'></i> CLOSE</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script src="./assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src='./assets/libs/datepicker/js/bootstrap-datepicker.js'></script>
+        <script src='./assets/bootstrap/js/bootstrap.min.js'></script>
+        <script src="./assets/libs/angular/angular.min.js"></script>
+        <script src="./controllers/generalFunction.js"></script>
+        <script src="./controllers/hisorderController.js"></script>
+        <script>
+                                            $(function(){
+                                            $('form input, select').addClass('input-sm');
+                                            $('form .btn').addClass('btn-sm');
+                                            
+                                            $('#save_selected').click(function(){
+                                                var patient_id = $('#patient_id').text();
+                                                var his_order_id = $('#images_report').data('orderid');
+                                                var images = $('.image_data');
+                                                var selected = [];
+                                                $(images).each(function(k,v){
+                                                    if($(v).is(':checked')){
+                                                        selected.push($(v).val());
+                                                    }
+                                                })
+                                                
+                                                var sendData = {
+                                                    patient_id: patient_id, 
+                                                    his_order_id:  his_order_id,
+                                                    images: selected
+                                                }
+                                                
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url:'http://localhost:8083/his-sample/patient/select-image',
+                                                    data: JSON.stringify(sendData),
+                                                    contentType: "application/json; charset=utf-8",
+                                                    success: function(data){
+                                                        console.log(data);
+                                                    }
+                                                })
+                                            });
+                                            });
+        </script>
+    </body>
+</html>

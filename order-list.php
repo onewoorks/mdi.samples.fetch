@@ -43,9 +43,8 @@
                                         <th>Patient MRN</th>
                                         <th>Patient Name</th>
                                         <th>Appointment Date</th>
-                                        <th>Status</th>
                                         <th>Ordered By</th>
-                                        <th>Action</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -143,7 +142,7 @@
                 var info = data.entry;
                 var filter = table.replace('table_', '');
                 
-                var total = 1;
+                var total = 0;
                 html += "<table class='text-uppercase table table-bordered table-condensed table-striped'>";
                 html += "<thead>";
                 html += "<tr>";
@@ -152,7 +151,6 @@
                 html += "<th>Patient MRN</th>";
                 html += "<th>Patient Name</th>";
                 html += "<th>Appointment Date</th>";
-                html += "<th>Status</th>";
                 html += "<th>Ordered By</th>";
                 html += "<th>Action</th>"
                 html += "</tr>";
@@ -168,12 +166,12 @@
                         html += "<td class='text-uppercase'>" + v.patient_id + "</td>";
                         html += "<td class='text-uppercase'>" + v.patient_name + "</td>";
                         html += "<td>" + convertDate(v.his_appointment_date) + "</td>";
-                        html += "<td>" + v.order_status + "</td>";
                         html += "<td>" + v.his_ordered_by + "</td>";
                         html += "<td class='text-center'>" + statusAction(v.order_status) + "</td>"
                         html += "</tr>"
                     }
                 });
+                
                 html += '</tbody>';
                 html += '</table>';
                 $('#' + table).html(html);
@@ -226,11 +224,11 @@
                     order_list_html += "<td>" + v.patient_id + "</td>";
                     order_list_html += "<td class='text-uppercase'>" + v.patient_name + "</td>";
                     order_list_html += "<td>" + convertDate(v.his_appointment_date) + "</td>";
-                    order_list_html += "<td>" + v.order_status + "</td>";
                     order_list_html += "<td>" + v.his_ordered_by + "</td>";
                     order_list_html += "<td class='text-center'>" + statusAction(v.order_status) + "</td>"
                     order_list_html += "</tr>";
                 })
+                
                 $('#all_orders tbody').html(order_list_html);
                 $('#total_all').html('(' + order_list.total + ')');
 

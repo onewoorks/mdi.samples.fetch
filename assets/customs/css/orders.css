@@ -18,17 +18,17 @@
 }
 
 @-webkit-keyframes blink {  
-  from { opacity: 1.0; }
-  to { opacity: 0.0; }
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
 }
 
 .blink {
     font-size:1.4em; padding-top:8px;font-style: italic;
     color: '#dedede';
-  -webkit-animation-name: blink;  
-  -webkit-animation-iteration-count: infinite;  
-  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
-  -webkit-animation-duration: 2s; 
+    -webkit-animation-name: blink;  
+    -webkit-animation-iteration-count: infinite;  
+    -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+    -webkit-animation-duration: 2s; 
 }
 
 .bottom-marking {
@@ -47,4 +47,76 @@
 }
 .offline {
     color:#F98262;
+}
+
+.table thead tr th {
+    vertical-align: middle;
+}
+
+.order_procedure_treatment {
+    background-color: #cdf5b5;
+}
+
+.order_radiology {
+    background-color: #ffe2fe
+}
+
+.order_medication{
+    background-color: #fdffc5
+}
+
+.order_general_order {
+    background-color: #ffebaa
+}
+
+.order_laboratory {
+    background-color: #d4f2fc
+}
+
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+.patient-picker {
+    transition: margin 700ms;
+    margin-bottom:0px;
+    height: 300px;
+}
+.patient-picker:hover {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    -webkit-transition: margin 700ms; /* Safari */
+    transition: margin 700ms;
 }
