@@ -34,11 +34,31 @@
                     </div>
                     <div class="col-sm-11">
                         <div class="row">
-                            <div class="col-md-5ths"><a href="#" ng-click='statusClick("ALL")' class="btn btn-info btn-block btn-lg">ALL ({{(orderSummary.allOrders==null)?0:orderSummary.allOrders}})</a></div>
-                            <div class="col-md-5ths"><a href="#" ng-click='statusClick("NEW")' class="btn btn-primary btn-block btn-lg">NEW ({{(orderSummary.newOrder==null)?0:orderSummary.newOrder}})</a></div>
-                            <div class="col-md-5ths"><a href="#" ng-click='statusClick("IN_PROGRESS")' class="btn btn-warning btn-block btn-lg">IN PROGRESS ({{(orderSummary.inProgress==null)?0:orderSummary.inProgress}})</a></div>
-                            <div class="col-md-5ths"><a href="#" ng-click='statusClick("COMPLETED")' class="btn btn-success btn-block btn-lg">COMPLETED ({{(orderSummary.completed==null) ? 0 :orderSummary.completed}})</a></div>
-                            <div class="col-md-5ths"><a href="#" ng-click='statusClick("DISCONTINUE")'class="btn btn-danger btn-block btn-lg">DISCONTINUED ({{(orderSummary.discontinue==null)?0:orderSummary.discontinue}})</a></div>
+                            <div class="col-md-5ths">
+                                <div class='btn btn-info btn-lg btn-block' ng-click='statusClick("ALL")'>ALL
+                                    <span class='badge pull-right'>{{(orderSummary.allOrders==null)?0:orderSummary.allOrders}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-5ths">
+                                <div ng-click='statusClick("NEW")' class="btn btn-primary btn-block btn-lg">NEW
+                                    <span class="badge pull-right">{{(orderSummary.newOrder==null)?0:orderSummary.newOrder}}</span>
+                                </div></div>
+                            <div class="col-md-5ths">
+                                <div ng-click='statusClick("IN_PROGRESS")' class="btn btn-warning btn-block btn-lg">
+                                    IN PROGRESS
+                                    <span class='badge pull-right'>{{(orderSummary.inProgress==null)?0:orderSummary.inProgress}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-5ths">
+                                <a href="#" ng-click='statusClick("COMPLETED")' class="btn btn-success btn-block btn-lg">
+                                    COMPLETED
+                                    <span class='badge pull-right'>{{(orderSummary.completed==null) ? 0 :orderSummary.completed}}</span>
+                                </a>
+                            </div>
+                            <div class="col-md-5ths">
+                                <div ng-click='statusClick("DISCONTINUE")'class="btn btn-danger btn-block btn-lg">DISCONTINUE
+                                    <span class='badge pull-right'>{{(orderSummary.discontinue==null)?0:orderSummary.discontinue}}</span>
+                                </div></div>
                         </div>
                     </div>
 
@@ -57,10 +77,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-if='orderlist.length==0'>
+                            <tr ng-if='orderlist.length == 0'>
                                 <td colspan="5" style='font-style: italic'>{{emptyRow}}</td>
                             </tr>
-                            <tr ng-if='orderlist!=null' ng-repeat="(index, order) in orderlist">
+                            <tr ng-if='orderlist != null' ng-repeat="(index, order) in orderlist">
                                 <td class='text-center' style='vertical-align: middle'>{{index + 1}}</td>
                                 <td class='text-center' style='vertical-align: middle'>{{order.patient_id}}</td>
                                 <td style='vertical-align: middle'>{{order.patient_name}}</td>
@@ -83,7 +103,7 @@
                                             <button class='btn btn-danger btn-lg btn-block'>DISCONTINUE</button>
                                         </div>
                                     </div>
-                                    <div class="dicom-worklist">
+                                    <div ng-class='dicom' class="dicom-worklist">
                                         <div ng-if="order.order_status == 'NEW'">
                                             <button class='btn btn-primary btn-lg btn-block disabled' data-toggle='modal' ng-click='performTask(order.his_order_id)'>NEW</button>
                                         </div>

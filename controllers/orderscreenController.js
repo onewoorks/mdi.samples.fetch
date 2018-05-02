@@ -1,41 +1,13 @@
 var orderscreen = angular.module('orderApp', []);
 orderscreen.controller('OrderController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
         var orderTitle = 'List Of Medical Device Orders';
-//	var url = 'http://172.19.64.7:8081/integration/orders/orderlist';
-        var url = 'http://localhost:8081/integration/orders/orderlist';
-        var url_integration = 'http://localhost:8081/integration';
-        var url_internal = 'http://localhost:8082/internal-device';
-        var url_his_sample_data = 'http://localhost:8083/his-sample';
 
-        var location = $location.absUrl();
-        var result = new Array();
+        var url_params = gf_getQueryParams();
 
-        if (location.includes('?')) {
-            var uri = location.split('?');
-            var params = uri[1].split('&');
-
-            angular.forEach(params, function (k, v) {
-                var each = k.split('=');
-                var key = '{"' + each[0] + '":"' + each[1] + '"}';
-                result.push(JSON.parse(key));
-            });
-        }
-        
         $scope.today = gf_todayDate();
 
-        var patientInfo = function (patient_id) {
-            $http.get(url_his_sample_data + '/patient/patient-info?patient_id=' + patient_id)
-                    .then(function (response) {
-                        var patient_info = response.data.entry;
-                        $scope.patient_name = patient_info.patient_name;
-                        $scope.patient_identification_no = patient_info.identification_no;
-                        $scope.patient_dob = patient_info.date_of_birth;
-                        $scope.patient_gender = patient_info.gender;
-                    });
-        };
-
         var deviceInfo = function () {
-            $http.get(url_internal + '/device/info?code=' + result[0].device)
+            $http.get(url_internal_device + '/device/info?code=' + url_params.device)
                     .then(function (response) {
                         var device = response.data.entry;
                         var online = device.online_status;
@@ -74,7 +46,7 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
         }
 
         var orderList = function () {
-            $http.get(url)
+            $http.get(url_device_integration + '/orders/orderlist')
                     .then(function (response) {
                         $scope.orderlist = response.data.entry;
                         $scope.orderTitle = orderTitle;
@@ -82,7 +54,7 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
         };
 
         var orderListDevice = function () {
-            $http.get(url + '?device=' + result[0].device)
+            $http.get(url_device_integration + '/orders/orderlist?device=' + url_params.device)
                     .then(function (response) {
                         $scope.orderlist = response.data.entry;
                         deviceInfo();
@@ -92,22 +64,40 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
         var performEndo = function (endo) {
             $http({
                 headers: {
-                    'Content-Type': 'application/json'},
-                url: 'http://172.19.64.7:8082/internal-device/endo/deviceperform',
+                    'Content-Type': 'application/json'
+                },
+                url: url_internal_device + '/device/update-order',
+                method: "PUT",
+                data: JSON.stringify(endo)})
+                    .then(function (response) {
+                    });
+        };
+        
+        var sendRequestToEndo = function (endo) {
+            $http({
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                url: url_internal_device + '/device/update-order',
                 method: "POST",
                 data: JSON.stringify(endo)})
                     .then(function (response) {
                     });
-        }
+        };
 
         $scope.performTask = function (id) {
-            $http.get(url + '?order_id=' + id)
+            $http.get(url_device_integration + '/orders/orderlist?order_id=' + id)
                     .then(function (response) {
                         var data = response.data.entry[0];
                         $scope.patient = data;
                         $('.modal').modal('show');
                         $scope.his_order_id_endo = id;
-                        var endo = {patient_id: data.patient_id, his_order_id: id};
+                        var endo = {
+                            patient_id: data.patient_id, 
+                            his_order_id: id,
+                            patient_ic: ''
+                            
+                        };
                         performEndo(endo);
                         $('#action_' + id).html('PROCESSING');
                         $('#action_' + id).removeClass('btn-primary');
@@ -118,25 +108,30 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
         };
 
         $scope.completeEndoscopy = function (id) {
-            $http.put(url_internal + '/endo/end-process/' + id)
-                    .then(function (reponse) {
-                        console.log('completeing endoscopy process ' + id);
+            $http.put(url_internal_device + '/endo/end-process/' + id)
+                    .then(function (response) {
+                        console.log(response);
                         $('.modal').modal('hide');
+                        updateOrderToSocket();
                     });
 
         };
 
         var todayOrderSummary = function () {
-            $http.get(url_integration + '/orders/order-summary')
+            var params = '';
+            if (url_params.hasOwnProperty('device')) {
+                params += '?device='+url_params.device;
+            }
+            $http.get(url_device_integration + '/orders/order-summary'+params)
                     .then(function (response) {
                         var orderSummaryResult = response.data.entry;
 
                         var totalOrders = 0;
-                        for (var key in orderSummaryResult){
+                        for (var key in orderSummaryResult) {
                             if (orderSummaryResult.hasOwnProperty(key))
-                            totalOrders += parseInt(orderSummaryResult[key]);
-                            }
-                        
+                                totalOrders += parseInt(orderSummaryResult[key]);
+                        }
+
                         var orderSummary = {
                             allOrders: totalOrders,
                             newOrder: orderSummaryResult.NEW,
@@ -150,16 +145,23 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
         };
 
         $scope.statusClick = function (status) {
-            $http.get(url_integration + '/orders/orderlist?order_status=' + status)
+            var params = '?order_status='+status;
+            if (url_params.hasOwnProperty('device')) {
+                params += '&device='+url_params.device;
+                $scope.dicom = 'hidden';
+            }
+            $http.get(url_device_integration + '/orders/orderlist' + params)
                     .then(function (response) {
                         var orderList = response.data.entry;
                         $scope.orderlist = orderList;
                         $scope.emptyRow = (orderList.length == 0) ? 'No order information for this status ' : '';
+                        
                     });
-        }
+        };
 
-        if (result.length) {
+        if (url_params.hasOwnProperty('device')) {
             orderListDevice();
+            todayOrderSummary();
         } else {
             orderList();
             $scope.tableAction = 'STATUS';

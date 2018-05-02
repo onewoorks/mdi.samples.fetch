@@ -120,3 +120,7 @@
     -webkit-transition: margin 700ms; /* Safari */
     transition: margin 700ms;
 }
+
+.btn .badge { 
+    font-size: 1em
+}

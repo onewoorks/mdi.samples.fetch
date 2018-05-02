@@ -1,5 +1,12 @@
-var url_his_sample_data = 'http://localhost:8083/his-sample';
-var url_device_integration = 'http://localhost:8081/integration';
+//url configuration for api call
+var source_ip = 'localhost'; //local development
+//var source_ip = '172.19.64.52'; //staging development
+
+var url_internal_device = 'http://'+source_ip+':8082/internal-device';
+var url_his_sample_data = 'http://'+source_ip+':8083/his-sample';
+var url_device_integration = 'http://'+source_ip+':8081/integration';
+//
+
 
 var gf_monthName = ['Januari', 'Februari', 'March'];
 

@@ -14,9 +14,6 @@ var fileType = function (file) {
 var newOrderScreen = angular.module('hisOrderApp', []);
 newOrderScreen.controller('hisOrderController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
-        var url_his_sample_data = 'http://localhost:8083/his-sample';
-        var url_device_integration = 'http://localhost:8081/integration'
-//        var url_his_sample_data = 'http://172.19.64.102:8083/his-sample';
         var url_params = gf_getQueryParams();
         var patient_id = url_params.patient_id;
                 $scope.addToList = function () {
