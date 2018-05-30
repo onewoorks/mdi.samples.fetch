@@ -10,6 +10,7 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
             $http.get(url_internal_device + '/device/info?code=' + url_params.device)
                     .then(function (response) {
                         var device = response.data.entry;
+                
                         var online = device.online_status;
                         var online_indicator = '';
                         if (online.toLowerCase() == 'online') {

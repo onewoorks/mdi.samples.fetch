@@ -7,15 +7,18 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
 
         $scope.today = gf_todayDate();
 
-        
         window.WebSocket = window.WebSocket || window.MozWebSocket;
         if (!window.WebSocket) {
             return;
         }
         var connection = new WebSocket('ws://' + source_ip + ':1337');
 //    var connection = new WebSocket('ws://127.0.0.1:1337');
-        connection.onopen = function () {$('#socket_status').text('socket is connected')};
-        connection.onerror = function (error) {$('#socket_status').text('socket is down!')};
+        connection.onopen = function () {
+            $('#socket_status').text('socket is connected')
+        };
+        connection.onerror = function (error) {
+            $('#socket_status').text('socket is down!')
+        };
 
         connection.onmessage = function (message) {
             console.log(message);
@@ -26,7 +29,7 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
                 switch (json.type) {
                     case 'update_order':
                         updateOrder(json.data);
-                        
+
                         break;
                     case 'new_order':
                         createNewOrder(json.data);
@@ -75,8 +78,8 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
                         .text(status_text)
                         .removeClass(btnStatus(currentStatus))
                         .addClass(btnStatus(nextStatus));
-                
-                $('#' + currentStatus + '_' + data.his_order_id).attr("id",nextStatus+'_'+data.his_order_id);
+
+                $('#' + currentStatus + '_' + data.his_order_id).attr("id", nextStatus + '_' + data.his_order_id);
 
                 var nextTotal = parseInt($('#total_' + nextStatus.toLowerCase()).html()) + 1;
 
@@ -119,7 +122,7 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
                         }
                         $('.online-indicator').addClass(online_indicator);
                         $scope.device_online = online;
-
+                        $scope.device_name = device.device_name;
                         $scope.orderTitle = 'Order List For ' + device.medical_device;
                         $scope.medical_device = device.medical_device;
                         if (device.dicom_worklist == 1) {
@@ -161,39 +164,55 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
                     });
         };
 
-        var performEndo = function (endo) {
+//        var performEndo = function (endo) {
+//            $http({
+//                headers: {
+//                    'Content-Type': 'application/json'
+//                },
+//                url: url_internal_device + '/device/update-order',
+//                method: "PUT",
+//                data: JSON.stringify(endo)})
+//                    .then(function (response) {
+//                    });
+//        };
+
+        var sendRequestToEndo = function (endo_data) {
+            var params  = gf_getQueryParams();
+            var device_code = params.device;
+            var order_url = '';
+            switch(device_code){
+                case 'edp001':
+                    order_url = url_internal_device + '/endo/new-order';
+                    break;
+                case 'edp002':
+                    order_url = url_internal_device + '/endo-olympus/new-order';
+                    break;
+            }
             $http({
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                url: url_internal_device + '/device/update-order',
-                method: "PUT",
-                data: JSON.stringify(endo)})
-                    .then(function (response) {
-                    });
-        };
-        
-        var sendRequestToEndo = function(endo_data){
-            $http({
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                url: url_internal_device + '/endo/new-order',
+                url: order_url,
                 method: "POST",
                 data: JSON.stringify(endo_data)})
-                    .then(function (response){});
+                    .then(function (response) {
+                        console.log(response.data);
+                    });
         };
 
         $scope.performTask = function (id) {
+            
             $http.get(url_device_integration + '/orders/orderlist?order_id=' + id)
                     .then(function (response) {
                         var data = response.data.entry[0];
                         $scope.patient = data;
                         var endo_data = {
-                            patient_id: data.patient_id, 
+                            patient_id: data.patient_id,
                             his_order_id: id,
                             patient_ic: '',
-                            patient_name: data.patient_name
+                            patient_name: data.patient_name,
+                            patient_dob : data.patient_dob_f,
+                            patient_gender: data.patient_gender_f
                         };
                         $('.modal').modal('show');
                         sendRequestToEndo(endo_data);
@@ -213,10 +232,49 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
                     .then(function (response) {
                         $('.modal').modal('hide');
                         updateOrderToSocket();
-                        
                     });
-
         };
+
+        function karlstorz(id) {
+            $scope.btn_complete = "PLEASE WAIT...";
+            $http.put(url_internal_device + '/endo/end-process/' + id)
+                    .then(function (response) {
+                        $('.modal').modal('hide');
+                        updateOrderToSocket();
+                    });
+        }
+
+        function olympusEndo(id) {
+            var olv_data = {
+                his_order_id: id,
+                device_code: url_params.device
+            };
+            $http({
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                url: url_internal_device + '/endo-olympus/end-process',
+                method: "POST",
+                data: JSON.stringify(olv_data)})
+                    .then(function (response) {
+                        console.log(response);
+                        $('.modal').modal('hide');
+                    });
+        }
+        ;
+
+        $scope.completeEndoscopyDevice = function (id) {
+            switch (url_params.device) {
+                case 'edp001':
+                    karlstorz(id);
+                    break;
+                case 'edp002':
+                    olympusEndo(id);
+                    break;
+            }
+        };
+
+
 
         var todayOrderSummary = function () {
             var params = '';
@@ -269,6 +327,8 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
             $scope.nondicom = 'hidden';
             todayOrderSummary();
         }
+
+        $scope.deviceid = "edp001";
         $scope.emptyRow = 'No orders scheduled for today';
         $('#appBody').css('visibility', 'visible');
 

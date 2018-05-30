@@ -12,7 +12,7 @@
         <div ng-controller="OrderController" style="padding-top:1px;">
 
             <div class="page-header text-center">
-                <h1 class="list-header">{{orderTitle}}</h1>
+                <h1 class="list-header">{{orderTitle}} <small>{{device_name}}</small></h1>
             </div>
 
             <div class="container-fluid" >
@@ -122,8 +122,6 @@
                         </tbody>
                     </table>
                 </div>
-                
-                
             </div>
 
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -171,7 +169,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6 text-right">
-                                    <div class="btn btn-success btn-lg" ng-click="completeEndoscopy(his_order_id_endo)">{{btn_complete}}</div>
+                                    <div class="btn btn-success btn-lg" ng-click="completeEndoscopyDevice(his_order_id_endo)">{{btn_complete}}</div>
                                 </div>
                             </div>
 

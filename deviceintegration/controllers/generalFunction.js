@@ -1,8 +1,8 @@
 //url configuration for api call
-//var source_ip = 'localhost'; //local development
+var source_ip = 'localhost'; //local development
 //var source_ip = '172.19.64.52'; //staging development
 //var source_ip = '192.168.0.7'; // ip rumah
-var source_ip = '172.19.64.102'; // ip rumah
+//var source_ip = '172.19.64.102'; // ip rumah
 
 var url_internal_device = 'http://'+source_ip+':8082/internal-device';
 var url_his_sample_data = 'http://'+source_ip+':8083/his-sample';
@@ -45,7 +45,7 @@ var device_code = function (order_name) {
             deviceCode = 'EDP001';
             break;
         case 'oesophagegastroduodonoscopy(ogds)':
-            deviceCode = 'EDP001';
+            deviceCode = 'EDP002';
             break;
         case 'dentalintraoralxray(perfilm)':
             deviceCode = 'PLM001';
