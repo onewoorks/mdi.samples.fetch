@@ -190,7 +190,7 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
             }
             $http({
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'text/plain'
                 },
                 url: order_url,
                 method: "POST",
@@ -251,7 +251,7 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
             };
             $http({
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'text/plain'
                 },
                 url: url_internal_device + '/endo-olympus/end-process',
                 method: "POST",
@@ -281,9 +281,10 @@ orderscreen.controller('OrderController', ['$scope', '$http', '$location', funct
             if (url_params.hasOwnProperty('device')) {
                 params += '?device=' + url_params.device;
             }
+            var orderSummaryResult = '';
             $http.get(url_device_integration + '/orders/order-summary' + params)
                     .then(function (response) {
-                        var orderSummaryResult = response.data.entry;
+                        orderSummaryResult = response.data.entry;
 
                         var totalOrders = 0;
                         for (var key in orderSummaryResult) {

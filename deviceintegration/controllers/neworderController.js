@@ -33,6 +33,7 @@ newOrderScreen.controller('NewOrderController', ['$scope', 'SweetAlert', '$http'
         $scope.addToList = function () {
             var inputs = $('#new_order').serializeArray();
             var objInput = objectifyForm(inputs);
+            
             var newAddToList = {
                 date_start: date_formatter(objInput.date_start),
                 duration: objInput.duration,
@@ -47,6 +48,10 @@ newOrderScreen.controller('NewOrderController', ['$scope', 'SweetAlert', '$http'
                 status: "-",
                 urgency: objInput.urgency
             };
+            
+//            console.log(newAddToList);
+            
+            console.log($scope.orderList);
             var patientOrderList = $scope.orderList;
             var newIndex = (patientOrderList.length);
             patientOrderList[newIndex] = newAddToList;
@@ -123,7 +128,7 @@ newOrderScreen.controller('NewOrderController', ['$scope', 'SweetAlert', '$http'
             };
             $http({
                 headers: {
-                    'Content-Type': 'application/json'},
+                    'Content-Type': 'text/plain'},
                 url: url_his_sample_data + '/order/new-order',
                 method: "POST",
                 data: JSON.stringify(coe_order)})
@@ -133,7 +138,7 @@ newOrderScreen.controller('NewOrderController', ['$scope', 'SweetAlert', '$http'
                     });
             $http({
                 headers: {
-                    'Content-Type': 'application/json'},
+                    'Content-Type': 'text/plain'},
                 url: url_his_sample_data + '/patient/add-to-list',
                 method: "POST",
                 data: JSON.stringify(add_to_list)})
@@ -144,7 +149,7 @@ newOrderScreen.controller('NewOrderController', ['$scope', 'SweetAlert', '$http'
 
             $http({
                 headers: {
-                    'Content-Type': 'application/json'},
+                    'Content-Type': 'text/plain'},
                 url: url_device_integration + '/orders/neworder',
                 method: "POST",
                 data: JSON.stringify(device_order)})

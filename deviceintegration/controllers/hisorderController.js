@@ -44,7 +44,6 @@ newOrderScreen.controller('hisOrderController', ['$scope', '$http', '$location',
         };
 
         var getPatientCoe = function (patient_id) {
-            console.log(url_his_sample_data + '/patient/patient-coe?patient_id=' + patient_id);
             $http.get(url_his_sample_data + '/patient/patient-coe?patient_id=' + patient_id)
                     .then(function (response) {
                         var coeList = response.data.entry;
