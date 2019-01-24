@@ -51,3 +51,8 @@ body {
 .navbar-static-top {
   margin-bottom: 19px;
 }
+
+
+.same-input-span {
+    width:60px;
+}

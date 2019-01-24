@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="patientPickerApp">
+    <head>
+        <title>PATIENT PICKER</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='./assets/customs/css/cd-design.css' />
+        <link rel="stylesheet" href='./assets/libs/datepicker/css/datepicker.css' />
+        <link rel="stylesheet" href="./assets/customs/css/orders.css" />
+        <link rel="stylesheet" href="./assets/libs/angular/sweetalert/sweetalert.css" />
+        <script src='./assets/libs/fontawesome/all.js'></script>
+    </head>
+    <body style='background-color: #F8F8F8'>
+        <div class='container-fluid' ng-controller="patientPickerController">
+            <div class="page-header text-center">
+                <h1>PATIENT PICKER <small><i>FIELD TEST</i></small></h1>
+            </div>
+
+            <div class='container'>
+                <div class='row'>
+                    <div class='col-sm-4 patient-picker' ng-repeat='patient in patientList'>
+
+                        <div class='panel panel-default'
+                             ng-mouseover="showmenu(patient.patient_id)"
+                             ng-mouseleave="offMenu(patient.patient_id)"
+                             >
+                            <div class='panel-body'>
+                                <div class='image-space' >
+                                    <center>
+                                        <img ng-src='.{{patient.image}}' class='img-responsive' style='height: 180px;'/>
+                                    </center>
+                                </div>
+                            </div>
+                            <div class='panel-footer text-center'>
+                                <strong>{{patient.patient_name}}</strong>
+                            </div>
+                            <div class='panel-body' id='linkage_{{patient.patient_id}}' style='display: none;'>
+                                <div class='row text-center'>
+                                    <div class='col-xs-6'>
+                                        <a href='./create-order.html?patient_id={{patient.patient_id}}' 
+                                           class=''>CREATE ORDER</a>
+                                    </div>
+                                    <div class='col-xs-6'>
+                                        <a href='./his-order-list.html?patient_id={{patient.patient_id}}'
+                                           class=''
+                                           >ORDER LIST</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src="./assets/libs/angular/angular.min.js "></script>
+        <script src="./controllers/generalFunction.js"></script>
+        <script src="./controllers/patientPickerController.js"></script>
+        <script>
+                                                $(function () {
+                                                    $('.patient-picker').mouseover(function () {
+                                                        console.log('ok');
+                                                    })
+                                                });
+        </script>
+    </body>
+</html>

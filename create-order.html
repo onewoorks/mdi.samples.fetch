@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html ng-app="newOrderApp">
+    <head>
+        <title>FIELD TEST | CREATE NEW ORDER</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel='stylesheet' href='assets/customs/css/cd-design.css' />
+        <link rel="stylesheet" href='assets/libs/datepicker/css/datepicker.css' />
+        <link rel="stylesheet" href="./assets/customs/css/orders.css" />
+        <link rel="stylesheet" href="./assets/libs/angular/sweetalert/sweetalert.css" />
+        <script src='./assets/libs/fontawesome/all.js'></script>
+    </head>
+    <body>
+        <div class="container-fluid" ng-controller="NewOrderController">
+            <div class="page-header text-center">
+                <h1>CREATE NEW ORDER (COE) <small><i>FIELD TEST</i></small></h1>
+            </div>
+
+            <div class='panel panel-primary'>
+                <div class='panel-heading'>
+                    <i class='fas fa-user-circle'></i> PATIENT INFORMATION
+                </div>
+                <div class='panel-body'>
+                    <div class='row'>
+                        <div class='col-sm-1'>
+                            <img src='./images/common/person.png' alt='patient_image' class='img-responsive' />
+                        </div>
+                        <div class="col-sm-11">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Patient Name :</strong></div>
+                                        <div class="col-sm-7">{{patient.patient_name}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Identification No :</strong></div>
+                                        <div class="col-sm-7">{{patient.identification_no}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Date Of Birth :</strong></div>
+                                        <div class="col-sm-7">{{patient.date_of_birth}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong>Gender :</strong></div>
+                                        <div class="col-sm-7">{{patient.gender}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong></strong></div>
+                                        <div class="col-sm-7"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <div class="col-sm-5 text-right"><strong></strong></div>
+                                        <div class="col-sm-7"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <i class='fas fa-notes-medical'></i> COMPUTERISED ORDER ENTRY (COE)
+                </div>
+
+                <div class="panel-body">
+                    <div class='row'>
+                        <div class='col-sm-12'>
+                            <ul class='list-inline'>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">LABORATORY</div></li>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">RADIOLOGY</div></li>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">MEDICATION</div></li>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">GENERAL ORDER</div></li>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">PROCEDURE TREATMENT</div></li>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">ORDER SET</div></li>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">DIET</div></li>
+                                <li><div class='btn btn-primary' ng-click="clickCategory($event)">NEXT OF KIN ORDER</div></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class='panel panel-default' style='margin-top:10px;'>
+                        <div class='panel-heading'>ORDER INFORMATION</div>
+                        <div class='panel-body'>
+                            <form id="new_order" class="form-horizontal" id="new_coe">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Category</label>
+                                            <div class="col-sm-9">
+                                                <input type='text' class='form-control' name='category' value='PROCEDURE TREATMENT' ng-model="input_category" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Order Name</label>
+                                            <div class="col-sm-7">
+                                                <select name='order_name' class='form-control' ng-change="selectOrderName()" ng-model='select_order_name'>
+                                                    <option value='00'>PLEASE SELECT</option>
+                                                    <option>Colonoscopy</option>
+                                                    <option>Oesophage Gastro Duodonoscopy (OGDS)</option>
+                                                    <option>Dental Intra Oral X Ray (perfilm)</option>
+                                                    <option>Ultrasound</option>
+                                                    <option>Fundus Photography</option>
+                                                    <option>Lung Function Test</option>
+                                                    <option>Keratometry</option>
+                                                </select>
+                                            </div>
+                                            <div class='col-sm-2'>
+                                                <p class='form-control-static'>{{device_code}}</p></div>
+                                        </div> 
+
+                                        <input type='hidden' name='device_code' ng-model='input_device_code' value='{{device_code_value}}' />
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Instruction</label>
+                                            <div class="col-sm-9">
+                                                <textarea name="instruction_description" class="form-control" rows="4" ></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Quantity</label>
+                                            <div class="col-sm-2">
+                                                <input name='quantity' type="text" class="form-control" placeholder="" value="1"/>
+                                            </div>
+                                            <label class="control-label col-sm-4">Frequency</label>
+                                            <div class="col-sm-3">
+                                                <select name="frequency" class="form-control">
+                                                    <option value="00">Please Select</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Start Date Time</label>
+                                            <div class="col-sm-4">
+                                                <div class="input-group">
+                                                    <input name='date_start' type="text" class="dp form-control" placeholder="dd/mm/yyyy" ng-model='date_start'/>
+                                                    <span class="input-group-addon">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Urgency</label>
+                                            <div class="col-sm-4">
+                                                <select name="urgency" class="form-control">
+                                                    <option value="00">Please Select</option>
+                                                    <option value='NORMAL'>NORMAL</option>
+                                                </select>
+                                            </div>
+
+                                            <label class="control-label col-sm-2">Recurring</label>
+                                            <div class="col-sm-3">
+                                                <label><input type="checkbox" value="1" ng-model="recurring" name="recurring" style=""></label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">No Of Time/Hourly</label>
+                                            <div class="col-sm-2">
+                                                <input name='no_of_time_hourly' type="text" class="form-control" placeholder=""/>
+                                            </div>
+
+                                            <label class="control-label col-sm-3 col-sm-push-1">Duration</label>
+                                            <div class="col-sm-1 col-sm-push-1">
+                                                <input name='duration' type="text" class="form-control text-center" placeholder=""/>
+                                            </div>
+
+                                            <div class='col-sm-2 col-sm-push-1' style='padding-left:0'>
+                                                <select name='duration_frequency' class='form-control'>
+                                                    <option value='00'>Please Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Charge In RM</label>
+                                            <div class="col-sm-4">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">RM</span>
+                                                    <input type="text" class="form-control text-center" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="btn btn-primary" ng-click="addToList()">
+                                            <i class="glyphicon glyphicon-plus"></i> Add To List
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <table class="table table-bordered table-condensed table-striped" style="font-size:0.8em;">
+                        <thead>
+                            <tr style=' background-color: lightgray;'>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Order Name</th>
+                                <th class="text-center">Instruction / Description</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Frequency</th>
+                                <th class="text-center">Start Date Time</th>
+                                <th class="text-center">Urgency</th>
+                                <th class="text-center">Recur</th>
+                                <th class="text-center">No of Times/Hourly</th>
+                                <th class="text-center">Duration</th>
+                                <th class="text-center">Order By</th>
+                                <th class="text-center">Order Date & Time</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center" style="width:160px;">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-if='orderList==null'>
+                                <td colspan="14">No order in the list recorded</td>
+                            </tr>
+                            <tr ng-model="patientOrderList" ng-repeat="order in orderList">
+                                <td>{{$index + 1}}</td>
+                                <td>{{order.order_name}}</td>
+                                <td>{{order.instruction_description}}</td>
+                                <td class="text-center">{{order.quantity}}</td>
+                                <td class="text-center">{{order.frequency}}</td>
+                                <td class="text-center">{{order.date_start}}</td>
+                                <td class="text-center">{{order.urgency}}</td>
+                                <td class="text-center">{{order.recurring}}</td>
+                                <td class="text-center">{{order.no_of_time_hourly}}</td>
+                                <td class="text-center">{{order.duration}}</td>
+                                <td>{{order.ordered_by}}</td>
+                                <td class="text-center">{{order.order_time}}</td>
+                                <td class="text-center">{{ (order.status == 'null' || order.status == '') ? '-' : order.status}}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="btn btn-primary btn-sm"ng-click='swal()'>
+                                <i class="glyphicon glyphicon-ok"></i> SUBMIT
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="./assets/jquery/jquery-3.1.1.min.js"></script>
+        <script src='./assets/libs/datepicker/js/bootstrap-datepicker.js'></script>
+        <script src="./assets/libs/angular/angular.min.js "></script>
+        <script src="./controllers/generalFunction.js"></script>
+        <script src="./controllers/neworderController.js"></script>
+        <script src='./assets/libs/angular/sweetalert/sweetalert.min.js'></script>
+        <script src='./assets/libs/angular/sweetalert/ngSweetalert.js'></script>
+        <script>
+                                $(function () {
+                                    $('input, select ').addClass('input-sm');
+                                    $('form .btn ').addClass('btn-sm');
+                                    $('.dp').datepicker({
+                                        format: 'dd/mm/yyyy'
+                                    })
+                                            .on('changeDate', function (ev) {
+                                                $('.dp').datepicker('hide');
+                                            });
+                                })
+        </script>
+    </body>
+
+</html>
